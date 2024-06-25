@@ -47,10 +47,10 @@ echo "█      █ █     █ █ █  █   █   ███    █    █ █ 
 echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
 echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
 echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
-echo ""
+echo "BY ATSi Corporation"
 echo "Installation has been started... Hold on!"
 echo "${reset}"
-sleep 3s
+sleep 10s
 
 
 
@@ -60,7 +60,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "OS check..."
 echo "${reset}"
-sleep 5s
+sleep 10s
 
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
@@ -92,7 +92,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Permission check..."
 echo "${reset}"
-sleep 1s
+sleep 5s
 
 if [ "$(id -u)" = "0" ]; then
     clear
@@ -110,12 +110,13 @@ fi
 clear
 clear
 echo "${bggreen}${black}${bold}"
-echo "OS Base setup also check for software requirement..."
+echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel requirement..."
 echo "${reset}"
-sleep 5s
+sleep 15s
 
 sudo apt-get update
-sudo apt-get -y install software-properties-common curl wget nano vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
+sudo apt-get upgrade
+sudo apt-get -y install software-properties-common curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
 
 
 # GET IP
@@ -134,7 +135,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Motd settings..."
 echo "${reset}"
-sleep 1s
+sleep 5s
 
 WELCOME=/etc/motd
 sudo touch $WELCOME
@@ -148,6 +149,8 @@ sudo cat > "$WELCOME" <<EOF
 
 With great power comes great responsibility...
 
+LinkPanel Build BY ATSi Corporation
+
 EOF
 
 
@@ -156,13 +159,14 @@ EOF
 clear
 echo "${bggreen}${black}${bold}"
 echo "LinkPanel will set Memory SWAP to 2GB..."
-echo "${reset}"
-sleep 2s
+sleep 5s
 
 sudo /bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
 sudo /sbin/mkswap /var/swap.LinkPanel2GB
 sudo /sbin/swapon /var/swap.LinkPanel2GB
-
+sudo free -h
+sleep 5s
+echo "${reset}"
 
 
 # ALIAS
@@ -170,7 +174,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Custom CLI configuration..."
 echo "${reset}"
-sleep 2s
+sleep 10s
 
 shopt -s expand_aliases
 alias ll='ls -alF'
@@ -182,7 +186,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Configure LinkPanel directories..."
 echo "${reset}"
-sleep 2s
+sleep 10s
 
 sudo mkdir /etc/linkpanel/
 sudo chmod o-r /etc/linkpanel
@@ -196,7 +200,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Set LinkPanel root user..."
 echo "${reset}"
-sleep 4s
+sleep 10s
 
 sudo pam-auth-update --package
 sudo mount -o remount,rw /
@@ -211,13 +215,15 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Nginx setup..."
 echo "${reset}"
-sleep 2s
+sleep 5s
 
-sudo apt-get -y install nginx-core
+sudo apt-get -y install nginx
 sudo systemctl start nginx.service
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo systemctl enable nginx.service
+sudo systemctl status nginx.service
+sleep 5s
 
 
 
@@ -226,9 +232,9 @@ sudo systemctl enable nginx.service
 # FIREWALL
 clear
 echo "${bggreen}${black}${bold}"
-echo "fail2ban setup..."
+echo "Fail2ban Firewall setup..."
 echo "${reset}"
-sleep 2s
+sleep 5s
 
 sudo apt-get -y install fail2ban
 JAIL=/etc/fail2ban/jail.local
@@ -255,14 +261,14 @@ sudo ufw allow "Nginx Full"
 # PHP
 clear
 echo "${bggreen}${black}${bold}"
-echo "PHP setup..."
+echo "PHP setup (This may take some time for install and configure)"
 echo "${reset}"
-sleep 1s
+sleep 15s
 
 
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
-
+sleep 5s
 sudo apt-get -y install php7.4-fpm
 sudo apt-get -y install php7.4-common
 sudo apt-get -y install php7.4-curl
