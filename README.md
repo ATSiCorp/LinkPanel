@@ -1,4 +1,4 @@
-<img src="https://github.com/anjasamar/linkpanel/blob/master/utility/design/banner.png?raw=true">
+<img src="https://github.com/ATSiCorp/linkpanel/blob/master/utility/design/banner.png?raw=true">
 
 ![GitHub stars](https://img.atsi.cloudields.io/github/stars/anjasamar/linkpanel?style=social)
 ![GitHub watchers](https://img.atsi.cloudields.io/github/watchers/anjasamar/linkpanel?style=social)
