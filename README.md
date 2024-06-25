@@ -36,7 +36,7 @@ LinkPanel Documentation is available at: https://linkpanel.atsi.cloud/docs.html.
 
 ## Installation
 ```bash
-wget -O - https://linkpanel.atsi.cloud/go.atsi.cloud | bash
+wget -O - https://github.com/ATSiCorp/LinkPanel/installer.sh | bash
 ```
 #### Installation on VPS
 VPS by default disables root login. To login as root inside VPS, login as default user and then use command sudo -s.
@@ -44,7 +44,7 @@ VPS by default disables root login. To login as root inside VPS, login as defaul
 ```
 $ ssh ubuntu@<your server IP address>
 $ ubuntu@aws:~$ sudo -s
-$ root@aws:~# wget -O - https://linkpanel.atsi.cloud/go.atsi.cloud | bash
+$ root@user:~# wget -O - https://github.com/ATSiCorp/LinkPanel/installer.sh | bash
 ```
 Remember to open ports: 22, 80 and 443!
 
@@ -80,13 +80,8 @@ To correctly manage remote servers LinkPanel has to be on a public IP address (I
 ## Why use LinkPanel?
 LinkPanel is easy, stable, powerful and free for any personal and commercial use and it's a perfect alternative to Runcloud, Ploi.io, Serverpilot, Forge, Moss.atsi.cloud and similar software...
 
-## Mobile App
-Christian Giupponi (https://zerouno.io) has developed the LinkPanel Mobile App.<br>
-Android: https://play.google.com/store/apps/details?id=it.christiangiupponi.linkpanel<br>
-iOS: Coming soon!<br><br>
-
 ## LinkPanel Roadmap... what's next? 
-- LinkPanel Version 4 (half 2022)
+- LinkPanel Version 4 (half 2024)
 - Laravel 9 support
 - Backup on s3
 - Apps installer
