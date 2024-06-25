@@ -146,11 +146,11 @@ sudo cat > "$WELCOME" <<EOF
 █      █ █     █ ██   █   █  █   █   █    █ ███   █    
 █      █ █     █ █ █  ████  ███████  █    █ █     █    
 ██████ █ █     █ █  █ █    █       █ █    █ █████ █████
-
-With great power comes great responsibility...
-
+=======================================================
+Simple Lightweight But Functional...
+-------------------------------------------------------
 LinkPanel Build BY ATSi Corporation
-
+=======================================================
 EOF
 
 
@@ -165,7 +165,7 @@ sudo /bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
 sudo /sbin/mkswap /var/swap.LinkPanel2GB
 sudo /sbin/swapon /var/swap.LinkPanel2GB
 sudo free -h
-sleep 5s
+sleep 15s
 echo "${reset}"
 
 
@@ -217,7 +217,7 @@ echo "Nginx setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt-get -y install nginx
+sudo apt-get -y -f install nginx
 sudo systemctl start nginx.service
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
@@ -487,7 +487,7 @@ server {
     error_page 404 /index.php;
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
     }
     location ~ /\.(?!well-known).* {
         deny all;
@@ -604,7 +604,7 @@ CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
 clear
 sudo rm -rf /var/www/html
-cd /var/www && git clone https://github.com/$REPO.git html
+cd /var/www/html && git clone https://github.com/$REPO.git
 cd /var/www/html && git pull
 cd /var/www/html && git checkout $BRANCH
 cd /var/www/html && git pull
