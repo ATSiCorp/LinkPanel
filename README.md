@@ -36,7 +36,7 @@ LinkPanel Documentation is available at: https://linkpanel.atsi.cloud/docs.html.
 
 ## Installation
 ```bash
-wget -O - https://github.com/ATSiCorp/LinkPanel/installer.sh | bash
+wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/installer.sh | bash
 ```
 #### Installation on VPS
 VPS by default disables root login. To login as root inside VPS, login as default user and then use command sudo -s.
@@ -44,7 +44,7 @@ VPS by default disables root login. To login as root inside VPS, login as defaul
 ```
 $ ssh ubuntu@<your server IP address>
 $ ubuntu@aws:~$ sudo -s
-$ root@user:~# wget -O - https://github.com/ATSiCorp/LinkPanel/installer.sh | bash
+$ root@user:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/installer.sh | bash
 ```
 Remember to open ports: 22, 80 and 443!
 
