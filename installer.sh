@@ -100,6 +100,7 @@ else
     clear
     echo "${bgred}${white}${bold}"
     echo "You have to run LinkPanel as root. (In VPS or Local Server use 'sudo -s')"
+    sleep 20s
     echo "${reset}"
     exit 1
 fi
@@ -165,9 +166,8 @@ sudo /bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
 sudo /sbin/mkswap /var/swap.LinkPanel2GB
 sudo /sbin/swapon /var/swap.LinkPanel2GB
 sudo free -h
-sleep 15s
 echo "${reset}"
-
+sleep 15s
 
 # ALIAS
 clear
@@ -437,7 +437,6 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "GIT setup..."
 echo "${reset}"
-sleep 10s
 
 sudo apt-get -y install git
 sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
