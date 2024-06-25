@@ -5,7 +5,7 @@ BUILD=202112181
 PASS=$(openssl rand -base64 32|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 DBPASS=$(openssl rand -base64 24|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 SERVERID=$(openssl rand -base64 12|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
-REPO=anjasamar/linkpanel
+REPO=ATSiCorp/linkpanel
 if [ -z "$1" ];
     BRANCH=main
 then
@@ -48,7 +48,7 @@ echo "█      █ █     █ ██   █   █  █   █   █    █ ██
 echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
 echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
 echo "BY ATSi Corporation"
-echo "Installation has been started... Hold on!"
+echo "Installation has been started... Hold on Pret!"
 echo "${reset}"
 sleep 10s
 
