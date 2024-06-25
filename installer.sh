@@ -726,8 +726,16 @@ sleep 1s
 
 # SETUP COMPLETE MESSAGE
 clear
+echo "${green}${bold}"
+echo ""
+echo "█      █ ██████  █  █ ████     █     █████  █████ █    "
+echo "█      █ █     █ █ █  █   █   ███    █    █ █     █    "
+echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
+echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
+echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
+echo "BY ATSi Corporation"
 echo "***********************************************************"
-echo "                    SETUP COMPLETE"
+echo "                    SETUP COMPLETE YAY"
 echo "***********************************************************"
 echo ""
 echo " SSH root user: atsi"
