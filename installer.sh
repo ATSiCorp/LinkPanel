@@ -407,7 +407,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "PHP CLI configuration..."
 echo "${reset}"
-sleep 1s
+sleep 10s
 
 sudo update-alternatives --set php /usr/bin/php8.2
 
@@ -418,7 +418,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Composer setup..."
 echo "${reset}"
-sleep 1s
+sleep 10s
 
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php --no-interaction
@@ -434,7 +434,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "GIT setup..."
 echo "${reset}"
-sleep 1s
+sleep 10s
 
 sudo apt-get -y install git
 sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
@@ -446,7 +446,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Supervisor setup..."
 echo "${reset}"
-sleep 1s
+sleep 10s
 
 sudo apt-get -y install supervisor
 service supervisor restart
@@ -458,7 +458,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Default vhost..."
 echo "${reset}"
-sleep 1s
+sleep 10s
 
 NGINX=/etc/nginx/sites-available/default
 if test -f "$NGINX"; then
@@ -496,6 +496,8 @@ server {
 EOF
 sudo mkdir /etc/nginx/linkpanel/
 sudo systemctl restart nginx.service
+sudo systemctl status nginx.service
+sleep 5s
 
 
 
@@ -506,7 +508,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "MySQL setup..."
 echo "${reset}"
-sleep 4s
+sleep 5s
 
 
 sudo apt-get install -y mysql-server
@@ -544,11 +546,13 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Redis setup..."
 echo "${reset}"
-sleep 2s
+sleep 5s
 
 sudo apt install -y redis-server
 sudo rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
 sudo systemctl restart redis.service
+sudo systemctl status redis.service
+sleep 5s
 
 
 
@@ -557,7 +561,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Let's Encrypt setup..."
 echo "${reset}"
-sleep 2s
+sleep 5s
 
 sudo apt-get install -y certbot
 sudo apt-get install -y python3-certbot-nginx
@@ -569,16 +573,16 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Node/npm setup..."
 echo "${reset}"
-sleep 4s
+sleep 5s
 
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-curl -sL https://deb.nodesource.com/setup16.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 NODE=/etc/apt/sources.list.d/nodesource.list
 sudo unlink NODE
 sudo touch $NODE
 sudo cat > "$NODE" <<EOF
-deb https://deb.nodesource.com/node_16.x focal main
-deb-src https://deb.nodesource.com/node_16.x focal main
+deb https://deb.nodesource.com/node_20.x noble main
+deb-src https://deb.nodesource.com/node_20.x noble main
 EOF
 sudo apt-get update
 sudo apt -y install nodejs
