@@ -1,7 +1,7 @@
 <img src="https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/utility/design/banner.png">
 
 ## About LinkPanel
-LinkPanel is a Laravel based cloud server control panel that supports Digital Ocean, VPS, Vultr, Google Cloud, Linode, Azure and other VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With LinkPanel you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
+LinkPanel is a Laravel based super lightweight cloud server control panel that supports small VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With LinkPanel you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
 
 ## Features
 - Easy install: setup one or more servers with a click in few minutes without be a Linux expert.
@@ -16,11 +16,11 @@ LinkPanel is a Laravel based cloud server control panel that supports Digital Oc
 
 - Always update: LinkPanel takes care about your business and automatically keeps your server's software up to date so you always have the latest security patches.
 
-- Integrate LinkPanel with your own software via Rest API and Swagger.
+- Integrate LinkPanel with your own software via Rest API and Swagger making light for minimum vps spec.
 
-- Real-time servers stats: Keep an eye on everything through an awesome dashboard.
+- Real-time servers stats: Keep an eye on everything through an awesome dashboard without making your vps get more load.
 
-- Always up to date: LinkPanel installs last versions of LTS dists and supports Ubuntu 20.04 LTS :)
+- Always up to date: LinkPanel installs (only) versions of LTS dists and supports Ubuntu 20.04 LTS for now :)
 
 ## Discover LinkPanel
 Visit website: https://linkpanel.atsi.cloud
