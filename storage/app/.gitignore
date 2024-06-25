@@ -1,0 +1,5 @@
+*
+!linkpanel/
+!linkpanel/*
+!public/
+!.gitignore
