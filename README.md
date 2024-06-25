@@ -91,7 +91,7 @@ Thank you for considering contributing to the LinkPanel Project (code, issues, f
 LinkPanel is an open-source software licensed under the MIT license.
 
 ## Need support with LinkPanel?
-Please open an issue here: https://github.com/anjasamar/linkpanel/issues.
+Please open an issue here: https://github.com/ATSiCorp/linkpanel/issues.
 
 ## Write to LinkPanel
 Write an email to: hello@linkpanel.atsi.cloud
