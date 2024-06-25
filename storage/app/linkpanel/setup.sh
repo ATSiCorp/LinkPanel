@@ -146,11 +146,11 @@ sudo cat > "$WELCOME" <<EOF
 █      █ █     █ ██   █   █  █   █   █    █ ███   █    
 █      █ █     █ █ █  ████  ███████  █    █ █     █    
 ██████ █ █     █ █  █ █    █       █ █    █ █████ █████
-=======================================================
+
 Simple Lightweight Functional For Small Server
--------------------------------------------------------
+
 LinkPanel Build BY ATSi Corporation
-=======================================================
+
 EOF
 
 
@@ -441,7 +441,7 @@ sleep 10s
 
 sudo apt-get -y install git
 sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
-
+sleep 5s
 
 
 # SUPERVISOR
@@ -454,7 +454,7 @@ sleep 10s
 sudo apt-get -y install supervisor
 service supervisor restart
 service supervisor status
-sleep 10s
+sleep 5s
 
 
 
@@ -586,8 +586,8 @@ NODE=/etc/apt/sources.list.d/nodesource.list
 sudo unlink NODE
 sudo touch $NODE
 sudo cat > "$NODE" <<EOF
-deb https://deb.nodesource.com/node_20.x noble main
-deb-src https://deb.nodesource.com/node_20.x noble main
+deb https://deb.nodesource.com/node_20.x focal main
+deb-src https://deb.nodesource.com/node_20.x focal main
 EOF
 sudo apt-get update
 sudo apt -y install nodejs
@@ -603,12 +603,14 @@ echo "And now LinkPanel installation begin..."
 echo "${reset}"
 sleep 15s
 
+echo "${bggreen}${black}${bold}"
+echo "Create syslink..."
 
 /usr/bin/mysql -u root -p$DBPASS <<EOF
 CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
-clear
-sudo rm -rf /var/www/html
+sleep 10s
+#sudo rm -rf /var/www/html //error 
 cd /var/www/html && git clone https://github.com/$REPO.git
 cd /var/www/html && git pull
 cd /var/www/html && git checkout $BRANCH
@@ -719,7 +721,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "LinkPanel installation has been completed..."
 echo "${reset}"
-sleep 1s
+sleep 15s
 
 
 
