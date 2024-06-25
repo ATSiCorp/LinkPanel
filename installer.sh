@@ -147,14 +147,14 @@ sudo cat > "$WELCOME" <<EOF
 █      █ █     █ █ █  ████  ███████  █    █ █     █    
 ██████ █ █     █ █  █ █    █       █ █    █ █████ █████
 =======================================================
-Simple Lightweight But Functional...
+Simple Lightweight Functional For Small Server
 -------------------------------------------------------
 LinkPanel Build BY ATSi Corporation
 =======================================================
 EOF
 
 
-
+sleep 15s
 # SWAP
 clear
 echo "${bggreen}${black}${bold}"
@@ -223,7 +223,7 @@ sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo systemctl enable nginx.service
 sudo systemctl status nginx.service
-sleep 5s
+sleep 10s
 
 
 
@@ -268,7 +268,7 @@ sleep 15s
 
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
-sleep 5s
+sleep 10s
 sudo apt-get -y install php7.4-fpm
 sudo apt-get -y install php7.4-common
 sudo apt-get -y install php7.4-curl
@@ -300,6 +300,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php7.4-fpm restart
+sleep 10s
 
 sudo apt-get -y install php8.0-fpm
 sudo apt-get -y install php8.0-common
@@ -332,6 +333,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php8.0-fpm restart
+sleep 10s
 
 sudo apt-get -y install php8.1-fpm
 sudo apt-get -y install php8.1-common
@@ -364,6 +366,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php8.1-fpm restart
+sleep 10s
 
 sudo apt-get -y install php8.2-fpm
 sudo apt-get -y install php8.2-common
@@ -396,7 +399,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php8.2-fpm restart
-
+sleep 10s
 
 # PHP EXTRA
 sudo apt-get -y install php-dev php-pear
@@ -450,6 +453,8 @@ sleep 10s
 
 sudo apt-get -y install supervisor
 service supervisor restart
+service supervisor status
+sleep 10s
 
 
 
@@ -497,7 +502,7 @@ EOF
 sudo mkdir /etc/nginx/linkpanel/
 sudo systemctl restart nginx.service
 sudo systemctl status nginx.service
-sleep 5s
+sleep 15s
 
 
 
@@ -552,7 +557,7 @@ sudo apt install -y redis-server
 sudo rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
 sudo systemctl restart redis.service
 sudo systemctl status redis.service
-sleep 5s
+sleep 15s
 
 
 
@@ -596,7 +601,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "And now LinkPanel installation begin..."
 echo "${reset}"
-sleep 5s
+sleep 15s
 
 
 /usr/bin/mysql -u root -p$DBPASS <<EOF
