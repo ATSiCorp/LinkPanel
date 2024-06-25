@@ -66,7 +66,7 @@ ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 if [ "$ID" = "ubuntu" ]; then
     case $VERSION in
-        24.04)
+        20.04)
             break
             ;;
         *)
@@ -135,7 +135,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Motd settings..."
 echo "${reset}"
-sleep 5s
+sleep 10s
 
 WELCOME=/etc/motd
 sudo touch $WELCOME
@@ -217,7 +217,7 @@ echo "Nginx setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt-get -y -f install nginx
+sudo apt-get -y install nginx.core
 sudo systemctl start nginx.service
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
