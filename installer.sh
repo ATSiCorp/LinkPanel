@@ -441,7 +441,7 @@ sleep 10s
 
 sudo apt-get -y install git
 sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
-
+sleep 5s
 
 
 # SUPERVISOR
@@ -454,7 +454,7 @@ sleep 10s
 sudo apt-get -y install supervisor
 service supervisor restart
 service supervisor status
-sleep 10s
+sleep 5s
 
 
 
@@ -608,7 +608,7 @@ sleep 15s
 CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
 clear
-sudo rm -rf /var/www/html
+#sudo rm -rf /var/www/html //error 
 cd /var/www/html && git clone https://github.com/$REPO.git
 cd /var/www/html && git pull
 cd /var/www/html && git checkout $BRANCH
