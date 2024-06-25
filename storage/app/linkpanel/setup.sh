@@ -99,7 +99,8 @@ if [ "$(id -u)" = "0" ]; then
 else
     clear
     echo "${bgred}${white}${bold}"
-    echo "You have to run LinkPanel as root. (In VPS or Local Server use 'sudo -s')"
+    echo "You have to run LinkPanel as root. (In VPS or Local Server use '-s')"
+    sleep 20s
     echo "${reset}"
     exit 1
 fi
@@ -114,9 +115,9 @@ echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel
 echo "${reset}"
 sleep 15s
 
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get -y install software-properties-common curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
+apt-get update
+apt-get upgrade
+apt-get -y install software-properties-common curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
 
 
 # GET IP
@@ -138,8 +139,8 @@ echo "${reset}"
 sleep 10s
 
 WELCOME=/etc/motd
-sudo touch $WELCOME
-sudo cat > "$WELCOME" <<EOF
+touch $WELCOME
+cat > "$WELCOME" <<EOF
 
 █      █ ██████  █  █ ████     █     █████  █████ █    
 █      █ █     █ █ █  █   █   ███    █    █ █     █    
@@ -161,13 +162,12 @@ echo "${bggreen}${black}${bold}"
 echo "LinkPanel will set Memory SWAP to 2GB..."
 sleep 5s
 
-sudo /bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
-sudo /sbin/mkswap /var/swap.LinkPanel2GB
-sudo /sbin/swapon /var/swap.LinkPanel2GB
-sudo free -h
-sleep 15s
+/bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
+/sbin/mkswap /var/swap.LinkPanel2GB
+/sbin/swapon /var/swap.LinkPanel2GB
+free -h
 echo "${reset}"
-
+sleep 15s
 
 # ALIAS
 clear
@@ -188,10 +188,10 @@ echo "Configure LinkPanel directories..."
 echo "${reset}"
 sleep 10s
 
-sudo mkdir /etc/linkpanel/
-sudo chmod o-r /etc/linkpanel
-sudo mkdir /var/linkpanel/
-sudo chmod o-r /var/linkpanel
+mkdir /etc/linkpanel/
+chmod o-r /etc/linkpanel
+mkdir /var/linkpanel/
+chmod o-r /var/linkpanel
 
 
 
@@ -202,12 +202,12 @@ echo "Set LinkPanel root user..."
 echo "${reset}"
 sleep 10s
 
-sudo pam-auth-update --package
-sudo mount -o remount,rw /
-sudo chmod 640 /etc/shadow
-sudo useradd -m -s /bin/bash linkpanel
-echo "linkpanel:$PASS"|sudo chpasswd
-sudo usermod -aG sudo linkpanel
+pam-auth-update --package
+mount -o remount,rw /
+chmod 640 /etc/shadow
+useradd -m -s /bin/bash linkpanel
+echo "linkpanel:$PASS"|chpasswd
+usermod -aG linkpanel
 
 
 # NGINX
@@ -217,12 +217,12 @@ echo "Nginx setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt-get -y install nginx.core
-sudo systemctl start nginx.service
-sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
-sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
-sudo systemctl enable nginx.service
-sudo systemctl status nginx.service
+apt-get -y install nginx.core
+systemctl start nginx.service
+rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
+rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
+systemctl enable nginx.service
+systemctl status nginx.service
 sleep 10s
 
 
@@ -236,11 +236,11 @@ echo "Fail2ban Firewall setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt-get -y install fail2ban
+apt-get -y install fail2ban
 JAIL=/etc/fail2ban/jail.local
-sudo unlink JAIL
-sudo touch $JAIL
-sudo cat > "$JAIL" <<EOF
+unlink JAIL
+touch $JAIL
+cat > "$JAIL" <<EOF
 [DEFAULT]
 bantime = 3600
 banaction = iptables-multiport
@@ -248,12 +248,14 @@ banaction = iptables-multiport
 enabled = true
 logpath  = /var/log/auth.log
 EOF
-sudo systemctl restart fail2ban
-sudo ufw --force enable
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
-sudo ufw allow "Nginx Full"
+systemctl restart fail2ban
+ufw --force enable
+ufw allow ssh
+ufw allow 22/tcp
+ufw allow 22/udp
+ufw allow http
+ufw allow https
+ufw allow "Nginx Full"
 
 
 
@@ -266,143 +268,143 @@ echo "${reset}"
 sleep 15s
 
 
-sudo add-apt-repository -y ppa:ondrej/php
-sudo apt-get update
+add-apt-repository -y ppa:ondrej/php
+apt-get update
 sleep 10s
-sudo apt-get -y install php7.4-fpm
-sudo apt-get -y install php7.4-common
-sudo apt-get -y install php7.4-curl
-sudo apt-get -y install php7.4-openssl
-sudo apt-get -y install php7.4-bcmath
-sudo apt-get -y install php7.4-mbstring
-sudo apt-get -y install php7.4-tokenizer
-sudo apt-get -y install php7.4-mysql
-sudo apt-get -y install php7.4-sqlite3
-sudo apt-get -y install php7.4-pgsql
-sudo apt-get -y install php7.4-redis
-sudo apt-get -y install php7.4-memcached
-sudo apt-get -y install php7.4-json
-sudo apt-get -y install php7.4-zip
-sudo apt-get -y install php7.4-xml
-sudo apt-get -y install php7.4-soap
-sudo apt-get -y install php7.4-gd
-sudo apt-get -y install php7.4-imagick
-sudo apt-get -y install php7.4-fileinfo
-sudo apt-get -y install php7.4-imap
-sudo apt-get -y install php7.4-cli
+apt-get -y install php7.4-fpm
+apt-get -y install php7.4-common
+apt-get -y install php7.4-curl
+apt-get -y install php7.4-openssl
+apt-get -y install php7.4-bcmath
+apt-get -y install php7.4-mbstring
+apt-get -y install php7.4-tokenizer
+apt-get -y install php7.4-mysql
+apt-get -y install php7.4-sqlite3
+apt-get -y install php7.4-pgsql
+apt-get -y install php7.4-redis
+apt-get -y install php7.4-memcached
+apt-get -y install php7.4-json
+apt-get -y install php7.4-zip
+apt-get -y install php7.4-xml
+apt-get -y install php7.4-soap
+apt-get -y install php7.4-gd
+apt-get -y install php7.4-imagick
+apt-get -y install php7.4-fileinfo
+apt-get -y install php7.4-imap
+apt-get -y install php7.4-cli
 PHPINI=/etc/php/7.4/fpm/conf.d/linkpanel.ini
-sudo touch $PHPINI
-sudo cat > "$PHPINI" <<EOF
+touch $PHPINI
+cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
 max_execution_time = 1999
 max_input_time = 1999
 EOF
-sudo service php7.4-fpm restart
+service php7.4-fpm restart
 sleep 10s
 
-sudo apt-get -y install php8.0-fpm
-sudo apt-get -y install php8.0-common
-sudo apt-get -y install php8.0-curl
-sudo apt-get -y install php8.0-openssl
-sudo apt-get -y install php8.0-bcmath
-sudo apt-get -y install php8.0-mbstring
-sudo apt-get -y install php8.0-tokenizer
-sudo apt-get -y install php8.0-mysql
-sudo apt-get -y install php8.0-sqlite3
-sudo apt-get -y install php8.0-pgsql
-sudo apt-get -y install php8.0-redis
-sudo apt-get -y install php8.0-memcached
-sudo apt-get -y install php8.0-json
-sudo apt-get -y install php8.0-zip
-sudo apt-get -y install php8.0-xml
-sudo apt-get -y install php8.0-soap
-sudo apt-get -y install php8.0-gd
-sudo apt-get -y install php8.0-imagick
-sudo apt-get -y install php8.0-fileinfo
-sudo apt-get -y install php8.0-imap
-sudo apt-get -y install php8.0-cli
+apt-get -y install php8.0-fpm
+apt-get -y install php8.0-common
+apt-get -y install php8.0-curl
+apt-get -y install php8.0-openssl
+apt-get -y install php8.0-bcmath
+apt-get -y install php8.0-mbstring
+apt-get -y install php8.0-tokenizer
+apt-get -y install php8.0-mysql
+apt-get -y install php8.0-sqlite3
+apt-get -y install php8.0-pgsql
+apt-get -y install php8.0-redis
+apt-get -y install php8.0-memcached
+apt-get -y install php8.0-json
+apt-get -y install php8.0-zip
+apt-get -y install php8.0-xml
+apt-get -y install php8.0-soap
+apt-get -y install php8.0-gd
+apt-get -y install php8.0-imagick
+apt-get -y install php8.0-fileinfo
+apt-get -y install php8.0-imap
+apt-get -y install php8.0-cli
 PHPINI=/etc/php/8.0/fpm/conf.d/linkpanel.ini
-sudo touch $PHPINI
-sudo cat > "$PHPINI" <<EOF
+touch $PHPINI
+cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
 max_execution_time = 1999
 max_input_time = 1999
 EOF
-sudo service php8.0-fpm restart
+service php8.0-fpm restart
 sleep 10s
 
-sudo apt-get -y install php8.1-fpm
-sudo apt-get -y install php8.1-common
-sudo apt-get -y install php8.1-curl
-sudo apt-get -y install php8.1-openssl
-sudo apt-get -y install php8.1-bcmath
-sudo apt-get -y install php8.1-mbstring
-sudo apt-get -y install php8.1-tokenizer
-sudo apt-get -y install php8.1-mysql
-sudo apt-get -y install php8.1-sqlite3
-sudo apt-get -y install php8.1-pgsql
-sudo apt-get -y install php8.1-redis
-sudo apt-get -y install php8.1-memcached
-sudo apt-get -y install php8.1-json
-sudo apt-get -y install php8.1-zip
-sudo apt-get -y install php8.1-xml
-sudo apt-get -y install php8.1-soap
-sudo apt-get -y install php8.1-gd
-sudo apt-get -y install php8.1-imagick
-sudo apt-get -y install php8.1-fileinfo
-sudo apt-get -y install php8.1-imap
-sudo apt-get -y install php8.1-cli
+apt-get -y install php8.1-fpm
+apt-get -y install php8.1-common
+apt-get -y install php8.1-curl
+apt-get -y install php8.1-openssl
+apt-get -y install php8.1-bcmath
+apt-get -y install php8.1-mbstring
+apt-get -y install php8.1-tokenizer
+apt-get -y install php8.1-mysql
+apt-get -y install php8.1-sqlite3
+apt-get -y install php8.1-pgsql
+apt-get -y install php8.1-redis
+apt-get -y install php8.1-memcached
+apt-get -y install php8.1-json
+apt-get -y install php8.1-zip
+apt-get -y install php8.1-xml
+apt-get -y install php8.1-soap
+apt-get -y install php8.1-gd
+apt-get -y install php8.1-imagick
+apt-get -y install php8.1-fileinfo
+apt-get -y install php8.1-imap
+apt-get -y install php8.1-cli
 PHPINI=/etc/php/8.1/fpm/conf.d/linkpanel.ini
-sudo touch $PHPINI
-sudo cat > "$PHPINI" <<EOF
+touch $PHPINI
+cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
 max_execution_time = 1999
 max_input_time = 1999
 EOF
-sudo service php8.1-fpm restart
+service php8.1-fpm restart
 sleep 10s
 
-sudo apt-get -y install php8.2-fpm
-sudo apt-get -y install php8.2-common
-sudo apt-get -y install php8.2-curl
-sudo apt-get -y install php8.2-openssl
-sudo apt-get -y install php8.2-bcmath
-sudo apt-get -y install php8.2-mbstring
-sudo apt-get -y install php8.2-tokenizer
-sudo apt-get -y install php8.2-mysql
-sudo apt-get -y install php8.2-sqlite3
-sudo apt-get -y install php8.2-pgsql
-sudo apt-get -y install php8.2-redis
-sudo apt-get -y install php8.2-memcached
-sudo apt-get -y install php8.2-json
-sudo apt-get -y install php8.2-zip
-sudo apt-get -y install php8.2-xml
-sudo apt-get -y install php8.2-soap
-sudo apt-get -y install php8.2-gd
-sudo apt-get -y install php8.2-imagick
-sudo apt-get -y install php8.2-fileinfo
-sudo apt-get -y install php8.2-imap
-sudo apt-get -y install php8.2-cli
+apt-get -y install php8.2-fpm
+apt-get -y install php8.2-common
+apt-get -y install php8.2-curl
+apt-get -y install php8.2-openssl
+apt-get -y install php8.2-bcmath
+apt-get -y install php8.2-mbstring
+apt-get -y install php8.2-tokenizer
+apt-get -y install php8.2-mysql
+apt-get -y install php8.2-sqlite3
+apt-get -y install php8.2-pgsql
+apt-get -y install php8.2-redis
+apt-get -y install php8.2-memcached
+apt-get -y install php8.2-json
+apt-get -y install php8.2-zip
+apt-get -y install php8.2-xml
+apt-get -y install php8.2-soap
+apt-get -y install php8.2-gd
+apt-get -y install php8.2-imagick
+apt-get -y install php8.2-fileinfo
+apt-get -y install php8.2-imap
+apt-get -y install php8.2-cli
 PHPINI=/etc/php/8.2/fpm/conf.d/linkpanel.ini
-sudo touch $PHPINI
-sudo cat > "$PHPINI" <<EOF
+touch $PHPINI
+cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
 max_execution_time = 1999
 max_input_time = 1999
 EOF
-sudo service php8.2-fpm restart
+service php8.2-fpm restart
 sleep 10s
 
 # PHP EXTRA
-sudo apt-get -y install php-dev php-pear
+apt-get -y install php-dev php-pear
 
 
 # PHP CLI
@@ -412,7 +414,7 @@ echo "PHP CLI configuration..."
 echo "${reset}"
 sleep 10s
 
-sudo update-alternatives --set php /usr/bin/php8.2
+update-alternatives --set php /usr/bin/php8.2
 
 
 
@@ -437,10 +439,9 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "GIT setup..."
 echo "${reset}"
-sleep 10s
 
-sudo apt-get -y install git
-sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
+apt-get -y install git
+ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
 sleep 5s
 
 
@@ -451,7 +452,7 @@ echo "Supervisor setup..."
 echo "${reset}"
 sleep 10s
 
-sudo apt-get -y install supervisor
+apt-get -y install supervisor
 service supervisor restart
 service supervisor status
 sleep 5s
@@ -467,10 +468,10 @@ sleep 10s
 
 NGINX=/etc/nginx/sites-available/default
 if test -f "$NGINX"; then
-    sudo unlink NGINX
+    unlink NGINX
 fi
-sudo touch $NGINX
-sudo cat > "$NGINX" <<EOF
+touch $NGINX
+cat > "$NGINX" <<EOF
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -499,9 +500,9 @@ server {
     }
 }
 EOF
-sudo mkdir /etc/nginx/linkpanel/
-sudo systemctl restart nginx.service
-sudo systemctl status nginx.service
+mkdir /etc/nginx/linkpanel/
+systemctl restart nginx.service
+systemctl status nginx.service
 sleep 15s
 
 
@@ -516,7 +517,7 @@ echo "${reset}"
 sleep 5s
 
 
-sudo apt-get install -y mysql-server
+apt-get install -y mysql-server
 SECURE_MYSQL=$(expect -c "
 set timeout 10
 spawn mysql_secure_installation
@@ -553,10 +554,10 @@ echo "Redis setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt install -y redis-server
-sudo rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
-sudo systemctl restart redis.service
-sudo systemctl status redis.service
+apt install -y redis-server
+rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
+systemctl restart redis.service
+systemctl status redis.service
 sleep 15s
 
 
@@ -568,8 +569,8 @@ echo "Let's Encrypt setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt-get install -y certbot
-sudo apt-get install -y python3-certbot-nginx
+apt-get install -y certbot
+apt-get install -y python3-certbot-nginx
 
 
 
@@ -580,18 +581,18 @@ echo "Node/npm setup..."
 echo "${reset}"
 sleep 5s
 
-curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
 NODE=/etc/apt/sources.list.d/nodesource.list
-sudo unlink NODE
-sudo touch $NODE
-sudo cat > "$NODE" <<EOF
+unlink NODE
+touch $NODE
+cat > "$NODE" <<EOF
 deb https://deb.nodesource.com/node_20.x focal main
 deb-src https://deb.nodesource.com/node_20.x focal main
 EOF
-sudo apt-get update
-sudo apt -y install nodejs
-sudo apt -y install npm
+apt-get update
+apt -y install nodejs
+apt -y install npm
 
 
 
@@ -610,27 +611,27 @@ echo "Create syslink..."
 CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
 sleep 10s
-sudo rm -rf /var/www/html //error 
-cd /var/www/html && git clone https://github.com/$REPO.git
+rm -rf /var/www/html //error 
+cd /var/www && git clone https://github.com/$REPO.git html
 cd /var/www/html && git pull
 cd /var/www/html && git checkout $BRANCH
 cd /var/www/html && git pull
-cd /var/www/html && sudo unlink .env
-cd /var/www/html && sudo cp .env.example .env
+cd /var/www/html && unlink .env
+cd /var/www/html && cp .env.example .env
 cd /var/www/html && php artisan key:generate
-sudo rpl -i -w "DB_USERNAME=dbuser" "DB_USERNAME=linkpanel" /var/www/html/.env
-sudo rpl -i -w "DB_PASSWORD=dbpass" "DB_PASSWORD=$DBPASS" /var/www/html/.env
-sudo rpl -i -w "DB_DATABASE=dbname" "DB_DATABASE=linkpanel" /var/www/html/.env
-sudo rpl -i -w "APP_URL=http://localhost" "APP_URL=http://$IP" /var/www/html/.env
-sudo rpl -i -w "APP_ENV=local" "APP_ENV=production" /var/www/html/.env
-sudo rpl -i -w "LINKPANELSERVERID" $SERVERID /var/www/html/database/seeders/DatabaseSeeder.php
-sudo rpl -i -w "LINKPANELIP" $IP /var/www/html/database/seeders/DatabaseSeeder.php
-sudo rpl -i -w "LINKPANELPASS" $PASS /var/www/html/database/seeders/DatabaseSeeder.php
-sudo rpl -i -w "LINKPANELDB" $DBPASS /var/www/html/database/seeders/DatabaseSeeder.php
-sudo chmod -R o+w /var/www/html/storage
-sudo chmod -R 777 /var/www/html/storage
-sudo chmod -R o+w /var/www/html/bootstrap/cache
-sudo chmod -R 777 /var/www/html/bootstrap/cache
+rpl -i -w "DB_USERNAME=dbuser" "DB_USERNAME=linkpanel" /var/www/html/.env
+rpl -i -w "DB_PASSWORD=dbpass" "DB_PASSWORD=$DBPASS" /var/www/html/.env
+rpl -i -w "DB_DATABASE=dbname" "DB_DATABASE=linkpanel" /var/www/html/.env
+rpl -i -w "APP_URL=http://localhost" "APP_URL=http://$IP" /var/www/html/.env
+rpl -i -w "APP_ENV=local" "APP_ENV=production" /var/www/html/.env
+rpl -i -w "LINKPANELSERVERID" $SERVERID /var/www/html/database/seeders/DatabaseSeeder.php
+rpl -i -w "LINKPANELIP" $IP /var/www/html/database/seeders/DatabaseSeeder.php
+rpl -i -w "LINKPANELPASS" $PASS /var/www/html/database/seeders/DatabaseSeeder.php
+rpl -i -w "LINKPANELDB" $DBPASS /var/www/html/database/seeders/DatabaseSeeder.php
+chmod -R o+w /var/www/html/storage
+chmod -R 777 /var/www/html/storage
+chmod -R o+w /var/www/html/bootstrap/cache
+chmod -R 777 /var/www/html/bootstrap/cache
 cd /var/www/html && composer update --no-interaction
 cd /var/www/html && php artisan key:generate
 cd /var/www/html && php artisan cache:clear
@@ -638,28 +639,28 @@ cd /var/www/html && php artisan storage:link
 cd /var/www/html && php artisan view:cache
 cd /var/www/html && php artisan linkpanel:activesetupcount
 LINKPANELBULD=/var/www/html/public/build_$SERVERID.php
-sudo touch $LINKPANELBULD
-sudo cat > $LINKPANELBULD <<EOF
+touch $LINKPANELBULD
+cat > $LINKPANELBULD <<EOF
 $BUILD
 EOF
 LINKPANELPING=/var/www/html/public/ping_$SERVERID.php
-sudo touch $LINKPANELPING
-sudo cat > $LINKPANELPING <<EOF
+touch $LINKPANELPING
+cat > $LINKPANELPING <<EOF
 Up
 EOF
 PUBKEYGH=/var/www/html/public/ghkey_$SERVERID.php
-sudo touch $PUBKEYGH
-sudo cat > $PUBKEYGH <<EOF
+touch $PUBKEYGH
+cat > $PUBKEYGH <<EOF
 <?php
 echo exec("cat /etc/linkpanel/github.pub");
 EOF
 cd /var/www/html && php artisan migrate --seed --force
 cd /var/www/html && php artisan config:cache
-sudo chmod -R o+w /var/www/html/storage
-sudo chmod -R 775 /var/www/html/storage
-sudo chmod -R o+w /var/www/html/bootstrap/cache
-sudo chmod -R 775 /var/www/html/bootstrap/cache
-sudo chown -R www-data:linkpanel /var/www/html
+chmod -R o+w /var/www/html/storage
+chmod -R 775 /var/www/html/storage
+chmod -R o+w /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/bootstrap/cache
+chown -R www-data:linkpanel /var/www/html
 
 
 
@@ -670,31 +671,31 @@ echo "Last LinkPanel installation steps..."
 echo "${reset}"
 sleep 1s
 
-sudo chown www-data:linkpanel -R /var/www/html
-sudo chmod -R 750 /var/www/html
-sudo echo 'DefaultStartLimitIntervalSec=1s' >> /usr/lib/systemd/system/user@.service
-sudo echo 'DefaultStartLimitBurst=50' >> /usr/lib/systemd/system/user@.service
-sudo echo 'StartLimitBurst=0' >> /usr/lib/systemd/system/user@.service
-sudo systemctl daemon-reload
+chown www-data:linkpanel -R /var/www/html
+chmod -R 750 /var/www/html
+echo 'DefaultStartLimitIntervalSec=1s' >> /usr/lib/systemd/system/user@.service
+echo 'DefaultStartLimitBurst=50' >> /usr/lib/systemd/system/user@.service
+echo 'StartLimitBurst=0' >> /usr/lib/systemd/system/user@.service
+systemctl daemon-reload
 
 TASK=/etc/cron.d/linkpanel.crontab
 touch $TASK
 cat > "$TASK" <<EOF
 10 4 * * 7 certbot renew --nginx --non-interactive --post-hook "systemctl restart nginx.service"
 20 4 * * 7 apt-get -y update
-40 4 * * 7 DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical sudo apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" dist-upgrade
+40 4 * * 7 DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" dist-upgrade
 20 5 * * 7 apt-get clean && apt-get autoclean
 50 5 * * * echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a
 * * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1
 5 2 * * * cd /var/www/html/utility/linkpanel-update && sh run.sh >> /dev/null 2>&1
 EOF
 crontab $TASK
-sudo systemctl restart nginx.service
-sudo rpl -i -w "#PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
-sudo rpl -i -w "# PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
-sudo rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh/sshd_config
-sudo rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
-sudo service sshd restart
+systemctl restart nginx.service
+rpl -i -w "#PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
+rpl -i -w "# PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
+rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh/sshd_config
+rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
+service sshd restart
 TASK=/etc/supervisor/conf.d/linkpanel.conf
 touch $TASK
 cat > "$TASK" <<EOF
@@ -711,10 +712,10 @@ redirect_stderr=true
 stdout_logfile=/var/www/worker.log
 stopwaitsecs=3600
 EOF
-sudo supervisorctl reread
-sudo supervisorctl update
-sudo supervisorctl start all
-sudo service supervisor restart
+supervisorctl reread
+supervisorctl update
+supervisorctl start all
+service supervisor restart
 
 # COMPLETE
 clear
