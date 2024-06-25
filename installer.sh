@@ -611,7 +611,7 @@ echo "Create syslink..."
 CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
 sleep 10s
-rm -rf /var/www/html //error 
+rm -rf /var/www/html
 cd /var/www && git clone https://github.com/$REPO.git html
 cd /var/www/html && git pull
 cd /var/www/html && git checkout $BRANCH
