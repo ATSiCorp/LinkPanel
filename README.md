@@ -16,11 +16,11 @@ LinkPanel is a Laravel based super lightweight cloud server control panel that s
 
 - Always update: LinkPanel takes care about your business and automatically keeps your server's software up to date so you always have the latest security patches.
 
-- Integrate LinkPanel with your own software via Rest API and Swagger.
+- Integrate LinkPanel with your own software via Rest API and Swagger making light for minimum vps spec.
 
-- Real-time servers stats: Keep an eye on everything through an awesome dashboard.
+- Real-time servers stats: Keep an eye on everything through an awesome dashboard without making your vps get more load.
 
-- Always up to date: LinkPanel installs last versions of LTS dists and supports Ubuntu 20.04 LTS :)
+- Always up to date: LinkPanel installs (only) versions of LTS dists and supports Ubuntu 20.04 LTS for now :)
 
 ## Discover LinkPanel
 Visit website: https://linkpanel.atsi.cloud
