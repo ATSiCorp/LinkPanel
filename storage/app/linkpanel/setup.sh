@@ -116,9 +116,11 @@ echo "${reset}"
 sleep 15s
 
 apt-get update
-apt-get upgrade
+apt-get upgrade -y
+add-apt-repository ppa:ondrej/php -y
+add-apt-repository ppa:ondrej/nginx-mainline -y
 apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
-
+apt update
 
 # GET IP
 clear
@@ -268,7 +270,6 @@ echo "${reset}"
 sleep 15s
 
 
-add-apt-repository ppa:ondrej/php -y
 apt-get update
 sleep 10s
 apt-get -y install php7.4-fpm
@@ -590,6 +591,7 @@ sudo cat > "$NODE" <<EOF
 deb https://deb.nodesource.com/node_20.x focal main
 deb-src https://deb.nodesource.com/node_20.x focal main
 EOF
+
 apt-get update
 apt -y install nodejs
 apt -y install npm
