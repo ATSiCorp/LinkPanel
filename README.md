@@ -1,4 +1,4 @@
-<img src="https://github.com/ATSiCorp/linkpanel/main/utility/design/banner.png?raw=true">
+<img src="https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/utility/design/banner.png">
 
 ## About LinkPanel
 LinkPanel is a Laravel based cloud server control panel that supports Digital Ocean, VPS, Vultr, Google Cloud, Linode, Azure and other VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With LinkPanel you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
