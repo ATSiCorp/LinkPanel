@@ -117,7 +117,6 @@ sleep 15s
 
 apt-get update
 apt-get upgrade
-sleep 10
 apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
 
 
@@ -141,7 +140,7 @@ sleep 10s
 
 WELCOME=/etc/motd
 touch $WELCOME
-cat > "$WELCOME" <<EOF
+sudo cat > "$WELCOME" <<EOF
 
 █      █ ██████  █  █ ████     █     █████  █████ █    
 █      █ █     █ █ █  █   █   ███    █    █ █     █    
@@ -241,7 +240,7 @@ apt-get -y install fail2ban
 JAIL=/etc/fail2ban/jail.local
 unlink JAIL
 touch $JAIL
-cat > "$JAIL" <<EOF
+sudo cat > "$JAIL" <<EOF
 [DEFAULT]
 bantime = 3600
 banaction = iptables-multiport
@@ -269,7 +268,7 @@ echo "${reset}"
 sleep 15s
 
 
-add-apt-repository -y ppa:ondrej/php
+add-apt-repository ppa:ondrej/php -y
 apt-get update
 sleep 10s
 apt-get -y install php7.4-fpm
@@ -295,7 +294,7 @@ apt-get -y install php7.4-imap
 apt-get -y install php7.4-cli
 PHPINI=/etc/php/7.4/fpm/conf.d/linkpanel.ini
 touch $PHPINI
-cat > "$PHPINI" <<EOF
+sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
@@ -328,7 +327,7 @@ apt-get -y install php8.0-imap
 apt-get -y install php8.0-cli
 PHPINI=/etc/php/8.0/fpm/conf.d/linkpanel.ini
 touch $PHPINI
-cat > "$PHPINI" <<EOF
+sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
@@ -361,7 +360,7 @@ apt-get -y install php8.1-imap
 apt-get -y install php8.1-cli
 PHPINI=/etc/php/8.1/fpm/conf.d/linkpanel.ini
 touch $PHPINI
-cat > "$PHPINI" <<EOF
+sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
@@ -394,7 +393,7 @@ apt-get -y install php8.2-imap
 apt-get -y install php8.2-cli
 PHPINI=/etc/php/8.2/fpm/conf.d/linkpanel.ini
 touch $PHPINI
-cat > "$PHPINI" <<EOF
+sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
 post_max_size = 256M
@@ -472,7 +471,7 @@ if test -f "$NGINX"; then
     unlink NGINX
 fi
 touch $NGINX
-cat > "$NGINX" <<EOF
+sudo cat > "$NGINX" <<EOF
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -539,7 +538,7 @@ send \"y\r\"
 expect eof
 ")
 echo "$SECURE_MYSQL"
-/usr/bin/mysql -u root -p$DBPASS <<EOF
+sudo /usr/bin/mysql -u root -p$DBPASS <<EOF
 use mysql;
 CREATE USER 'linkpanel'@'%' IDENTIFIED WITH mysql_native_password BY '$DBPASS';
 GRANT ALL PRIVILEGES ON *.* TO 'linkpanel'@'%' WITH GRANT OPTION;
@@ -587,7 +586,7 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
 NODE=/etc/apt/sources.list.d/nodesource.list
 unlink NODE
 touch $NODE
-cat > "$NODE" <<EOF
+sudo cat > "$NODE" <<EOF
 deb https://deb.nodesource.com/node_20.x focal main
 deb-src https://deb.nodesource.com/node_20.x focal main
 EOF
@@ -608,7 +607,7 @@ sleep 15s
 echo "${bggreen}${black}${bold}"
 echo "Create syslink..."
 
-/usr/bin/mysql -u root -p$DBPASS <<EOF
+sudo /usr/bin/mysql -u root -p$DBPASS <<EOF
 CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
 sleep 10s
@@ -641,17 +640,17 @@ cd /var/www/html && php artisan view:cache
 cd /var/www/html && php artisan linkpanel:activesetupcount
 LINKPANELBULD=/var/www/html/public/build_$SERVERID.php
 touch $LINKPANELBULD
-cat > $LINKPANELBULD <<EOF
+sudo cat > $LINKPANELBULD <<EOF
 $BUILD
 EOF
 LINKPANELPING=/var/www/html/public/ping_$SERVERID.php
 touch $LINKPANELPING
-cat > $LINKPANELPING <<EOF
+sudo cat > $LINKPANELPING <<EOF
 Up
 EOF
 PUBKEYGH=/var/www/html/public/ghkey_$SERVERID.php
 touch $PUBKEYGH
-cat > $PUBKEYGH <<EOF
+sudo cat > $PUBKEYGH <<EOF
 <?php
 echo exec("cat /etc/linkpanel/github.pub");
 EOF
@@ -681,7 +680,7 @@ systemctl daemon-reload
 
 TASK=/etc/cron.d/linkpanel.crontab
 touch $TASK
-cat > "$TASK" <<EOF
+sudo cat > "$TASK" <<EOF
 10 4 * * 7 certbot renew --nginx --non-interactive --post-hook "systemctl restart nginx.service"
 20 4 * * 7 apt-get -y update
 40 4 * * 7 DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" dist-upgrade
@@ -699,7 +698,7 @@ rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
 service sshd restart
 TASK=/etc/supervisor/conf.d/linkpanel.conf
 touch $TASK
-cat > "$TASK" <<EOF
+sudo cat > "$TASK" <<EOF
 [program:linkpanel-worker]
 process_name=%(program_name)s_%(process_num)02d
 command=php /var/www/html/artisan queue:work --sleep=3 --tries=3 --max-time=3600
