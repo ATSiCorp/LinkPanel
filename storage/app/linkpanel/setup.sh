@@ -117,7 +117,8 @@ sleep 15s
 
 apt-get update
 apt-get upgrade
-apt-get -y install software-properties-common curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
+sleep 10
+apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
 
 
 # GET IP
