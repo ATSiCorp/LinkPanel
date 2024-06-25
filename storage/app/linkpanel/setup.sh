@@ -5,7 +5,7 @@ BUILD=202112181
 PASS=$(openssl rand -base64 32|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 DBPASS=$(openssl rand -base64 24|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 SERVERID=$(openssl rand -base64 12|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
-REPO=anjasamar/linkpanel
+REPO=ATSiCorp/linkpanel
 if [ -z "$1" ];
     BRANCH=main
 then
@@ -48,7 +48,7 @@ echo "█      █ █     █ ██   █   █  █   █   █    █ ██
 echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
 echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
 echo "BY ATSi Corporation"
-echo "Installation has been started... Hold on!"
+echo "Installation has been started... Hold on Pret!"
 echo "${reset}"
 sleep 10s
 
@@ -146,15 +146,15 @@ sudo cat > "$WELCOME" <<EOF
 █      █ █     █ ██   █   █  █   █   █    █ ███   █    
 █      █ █     █ █ █  ████  ███████  █    █ █     █    
 ██████ █ █     █ █  █ █    █       █ █    █ █████ █████
-
-With great power comes great responsibility...
-
+=======================================================
+Simple Lightweight Functional For Small Server
+-------------------------------------------------------
 LinkPanel Build BY ATSi Corporation
-
+=======================================================
 EOF
 
 
-
+sleep 15s
 # SWAP
 clear
 echo "${bggreen}${black}${bold}"
@@ -165,7 +165,7 @@ sudo /bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
 sudo /sbin/mkswap /var/swap.LinkPanel2GB
 sudo /sbin/swapon /var/swap.LinkPanel2GB
 sudo free -h
-sleep 5s
+sleep 15s
 echo "${reset}"
 
 
@@ -217,13 +217,13 @@ echo "Nginx setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt-get -y install nginx
+sudo apt-get -y -f install nginx
 sudo systemctl start nginx.service
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo systemctl enable nginx.service
 sudo systemctl status nginx.service
-sleep 5s
+sleep 10s
 
 
 
@@ -268,7 +268,7 @@ sleep 15s
 
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
-sleep 5s
+sleep 10s
 sudo apt-get -y install php7.4-fpm
 sudo apt-get -y install php7.4-common
 sudo apt-get -y install php7.4-curl
@@ -300,6 +300,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php7.4-fpm restart
+sleep 10s
 
 sudo apt-get -y install php8.0-fpm
 sudo apt-get -y install php8.0-common
@@ -332,6 +333,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php8.0-fpm restart
+sleep 10s
 
 sudo apt-get -y install php8.1-fpm
 sudo apt-get -y install php8.1-common
@@ -364,6 +366,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php8.1-fpm restart
+sleep 10s
 
 sudo apt-get -y install php8.2-fpm
 sudo apt-get -y install php8.2-common
@@ -396,7 +399,7 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php8.2-fpm restart
-
+sleep 10s
 
 # PHP EXTRA
 sudo apt-get -y install php-dev php-pear
@@ -450,6 +453,8 @@ sleep 10s
 
 sudo apt-get -y install supervisor
 service supervisor restart
+service supervisor status
+sleep 10s
 
 
 
@@ -487,7 +492,7 @@ server {
     error_page 404 /index.php;
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
     }
     location ~ /\.(?!well-known).* {
         deny all;
@@ -497,7 +502,7 @@ EOF
 sudo mkdir /etc/nginx/linkpanel/
 sudo systemctl restart nginx.service
 sudo systemctl status nginx.service
-sleep 5s
+sleep 15s
 
 
 
@@ -552,7 +557,7 @@ sudo apt install -y redis-server
 sudo rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
 sudo systemctl restart redis.service
 sudo systemctl status redis.service
-sleep 5s
+sleep 15s
 
 
 
@@ -596,7 +601,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "And now LinkPanel installation begin..."
 echo "${reset}"
-sleep 5s
+sleep 15s
 
 
 /usr/bin/mysql -u root -p$DBPASS <<EOF
@@ -604,7 +609,7 @@ CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
 clear
 sudo rm -rf /var/www/html
-cd /var/www && git clone https://github.com/$REPO.git html
+cd /var/www/html && git clone https://github.com/$REPO.git
 cd /var/www/html && git pull
 cd /var/www/html && git checkout $BRANCH
 cd /var/www/html && git pull
@@ -721,8 +726,16 @@ sleep 1s
 
 # SETUP COMPLETE MESSAGE
 clear
+echo "${green}${bold}"
+echo ""
+echo "█      █ ██████  █  █ ████     █     █████  █████ █    "
+echo "█      █ █     █ █ █  █   █   ███    █    █ █     █    "
+echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
+echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
+echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
+echo "BY ATSi Corporation"
 echo "***********************************************************"
-echo "                    SETUP COMPLETE"
+echo "                    SETUP COMPLETE YAY"
 echo "***********************************************************"
 echo ""
 echo " SSH root user: atsi"
