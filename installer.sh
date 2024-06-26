@@ -52,7 +52,7 @@ echo "=================================================================="
 echo "Installation has been started... on 20 sec, Hold on!"
 echo "This script automatically takes care of all the installation tasks"
 echo "so sit back and get some coffee ready to relax."
-echo "${reset}='a'"
+echo "${restart}='a'"
 sleep 20s
 
 
