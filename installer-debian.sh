@@ -231,7 +231,7 @@ echo "Nginx setup..."
 echo "${restart}"
 sleep 5s
 
-apt-get -y install nginx.core
+sudo apt-get -y install nginx.core
 sudo systemctl start nginx.service
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
