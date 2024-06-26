@@ -2,6 +2,8 @@
 
 [![PHP Composer](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml/badge.svg)](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml)
 
+- Also check author oringinal profile: <a href="https://github.com/anjasamar/LinkPanel">Anjas Amar Pradana</a>
+
 ## About LinkPanel
 LinkPanel is a Laravel based super lightweight cloud server control panel that supports small VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With LinkPanel you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
 
@@ -63,7 +65,7 @@ Before you can use LinkPanel, please make sure your server fulfils these require
 
 - Debian 10-12 & Ubuntu 20.04-24.04 x86_64 LTS (Fresh installation)
 - If the server is virtual (VPS), OpenVZ may not be supported
-- We are checking LinkPanel compatibility within Oracle / ARM (not full supported yet)
+- We are checking LinkPanel compatibility within Rhel / Oracle / ARM (not supported yet, I'm curently working)
 
 Hardware Requirement: More than 1GB of HD / At least 1 core processor / 512MB minimum RAM / At least 1 public IP  Address (IPv6 and NAT VPS are not supported) / For VPS providers such as VPS, those providers already include an external firewall for your VPS. Please open port 22, 80 and 443 to install LinkPanel.
 
