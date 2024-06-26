@@ -18,7 +18,7 @@ class ShellController extends Controller
     {
         $server = Server::where('server_id', $server_id)->where('status', 0)->firstOrFail();
 
-        $script = Storage::get('linkpanel/setup.sh');
+        $script = Storage::get('linkpanel/setup-ubuntu.sh');
         $script = Str::replaceArray('???', [
             $server->password,
             $server->database,
