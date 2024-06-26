@@ -5,7 +5,7 @@ BUILD=202112181
 PASS=$(openssl rand -base64 32|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 DBPASS=$(openssl rand -base64 24|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 SERVERID=$(openssl rand -base64 12|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
-REPO=ATSiCorp/linkpanel
+REPO=ATSiCorp/LinkPanel
 if [ -z "$1" ];
     BRANCH=main
 then
@@ -42,12 +42,12 @@ bgpurple=$(tput setab 5)
 clear
 echo "${green}${bold}"
 echo "=================================================================="
-echo "█      █ ██████  █  █ ████     █     █████  █████ █    "
-echo "█      █ █     █ █ █  █   █   ███    █    █ █     █    "
-echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
-echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
-echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
-echo "BY ATSi Corporation"
+echo "  █      █ ██████  █  █ ████     █     █████  █████ █     "
+echo "  █      █ █     █ █ █  █   █   ███    █    █ █     █     "
+echo "  █      █ █     █ ██   █   █  █   █   █    █ ███   █     "
+echo "  █      █ █     █ █ █  ████  ███████  █    █ █     █     "
+echo "  ██████ █ █     █ █  █ █    █       █ █    █ █████ █████ "
+echo "  Debian Version BY ATSi Corporation"
 echo "=================================================================="
 echo "Installation has been started... on 20 sec, Hold on!"
 echo "This script automatically takes care of all the installation tasks"
@@ -61,7 +61,7 @@ sleep 20s
 clear
 clear
 echo "${bggreen}${black}${bold}"
-echo "OS check..."
+echo "Operating System check..."
 echo "${restart}"
 sleep 10s
 
@@ -75,7 +75,7 @@ if [ "$ID" = "debian" ]; then
             ;;
         *)
             echo "${bgred}${white}${bold}"
-            echo "LinkPanel requires Linux Debian 10-12 LTS Only"
+            echo "LinkPanel requires Linux Ubuntu 24.04-22.04 LTS Only"
             echo "${restart}"
             exit 1;
             break
@@ -83,7 +83,7 @@ if [ "$ID" = "debian" ]; then
     esac
 else
     echo "${bgred}${white}${bold}"
-    echo "LinkPanel requires Linux Debian 10-12 LTS Only"
+    echo "LinkPanel requires Linux Ubuntu 20.04-22.04 LTS Only"
     echo "${restart}"
     exit 1
 fi
@@ -124,7 +124,12 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo add-apt-repository ppa:ondrej/php -y
 sudo add-apt-repository ppa:ondrej/nginx-mainline -y
-sudo apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
+sudo wget -qO - https://packages.sury.org/php/apt.gpg | sudo apt-key add -
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+sudo apt update
+sudo apt-get install software-properties-common -y
+sudo apt-get install net-tools curl wget nano micro vim 
+sudo apt-get install rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
 sudo apt update
 
 # GET IP
@@ -135,7 +140,7 @@ echo "Getting this machine public IP not local IP..."
 echo "${restart}"
 sleep 5s
 
-IP=(curl -s https://checkip.amazonaws.com)
+IP=curl -s https://checkip.amazonaws.com
 
 
 # MOTD WELCOME MESSAGE
@@ -277,29 +282,31 @@ sleep 15s
 
 apt-get update
 sleep 10s
-apt-get -y install php7.4-fpm
-apt-get -y install php7.4-common
-apt-get -y install php7.4-curl
-apt-get -y install php7.4-openssl
-apt-get -y install php7.4-bcmath
-apt-get -y install php7.4-mbstring
-apt-get -y install php7.4-tokenizer
-apt-get -y install php7.4-mysql
-apt-get -y install php7.4-sqlite3
-apt-get -y install php7.4-pgsql
-apt-get -y install php7.4-redis
-apt-get -y install php7.4-memcached
-apt-get -y install php7.4-json
-apt-get -y install php7.4-zip
-apt-get -y install php7.4-xml
-apt-get -y install php7.4-soap
-apt-get -y install php7.4-gd
-apt-get -y install php7.4-imagick
-apt-get -y install php7.4-fileinfo
-apt-get -y install php7.4-imap
-apt-get -y install php7.4-cli
+
+sudo apt-get -y install php7.4
+sudo apt-get -y install php7.4-fpm
+sudo apt-get -y install php7.4-common
+sudo apt-get -y install php7.4-curl
+sudo apt-get -y install php7.4-openssl
+sudo apt-get -y install php7.4-bcmath
+sudo apt-get -y install php7.4-mbstring
+sudo apt-get -y install php7.4-tokenizer
+sudo apt-get -y install php7.4-mysql
+sudo apt-get -y install php7.4-sqlite3
+sudo apt-get -y install php7.4-pgsql
+sudo apt-get -y install php7.4-redis
+sudo apt-get -y install php7.4-memcached
+sudo apt-get -y install php7.4-json
+sudo apt-get -y install php7.4-zip
+sudo apt-get -y install php7.4-xml
+sudo apt-get -y install php7.4-soap
+sudo apt-get -y install php7.4-gd
+sudo apt-get -y install php7.4-imagick
+sudo apt-get -y install php7.4-fileinfo
+sudo apt-get -y install php7.4-imap
+sudo apt-get -y install php7.4-cli
 PHPINI=/etc/php/7.4/fpm/conf.d/linkpanel.ini
-touch $PHPINI
+sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
@@ -310,29 +317,30 @@ EOF
 service php7.4-fpm restart
 sleep 10s
 
-apt-get -y install php8.0-fpm
-apt-get -y install php8.0-common
-apt-get -y install php8.0-curl
-apt-get -y install php8.0-openssl
-apt-get -y install php8.0-bcmath
-apt-get -y install php8.0-mbstring
-apt-get -y install php8.0-tokenizer
-apt-get -y install php8.0-mysql
-apt-get -y install php8.0-sqlite3
-apt-get -y install php8.0-pgsql
-apt-get -y install php8.0-redis
-apt-get -y install php8.0-memcached
-apt-get -y install php8.0-json
-apt-get -y install php8.0-zip
-apt-get -y install php8.0-xml
-apt-get -y install php8.0-soap
-apt-get -y install php8.0-gd
-apt-get -y install php8.0-imagick
-apt-get -y install php8.0-fileinfo
-apt-get -y install php8.0-imap
-apt-get -y install php8.0-cli
+sudo apt-get -y install php8.0
+sudo apt-get -y install php8.0-fpm
+sudo apt-get -y install php8.0-common
+sudo apt-get -y install php8.0-curl
+sudo apt-get -y install php8.0-openssl
+sudo apt-get -y install php8.0-bcmath
+sudo apt-get -y install php8.0-mbstring
+sudo apt-get -y install php8.0-tokenizer
+sudo apt-get -y install php8.0-mysql
+sudo apt-get -y install php8.0-sqlite3
+sudo apt-get -y install php8.0-pgsql
+sudo apt-get -y install php8.0-redis
+sudo apt-get -y install php8.0-memcached
+sudo apt-get -y install php8.0-json
+sudo apt-get -y install php8.0-zip
+sudo apt-get -y install php8.0-xml
+sudo apt-get -y install php8.0-soap
+sudo apt-get -y install php8.0-gd
+sudo apt-get -y install php8.0-imagick
+sudo apt-get -y install php8.0-fileinfo
+sudo apt-get -y install php8.0-imap
+sudo apt-get -y install php8.0-cli
 PHPINI=/etc/php/8.0/fpm/conf.d/linkpanel.ini
-touch $PHPINI
+sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
@@ -343,29 +351,30 @@ EOF
 service php8.0-fpm restart
 sleep 10s
 
-apt-get -y install php8.1-fpm
-apt-get -y install php8.1-common
-apt-get -y install php8.1-curl
-apt-get -y install php8.1-openssl
-apt-get -y install php8.1-bcmath
-apt-get -y install php8.1-mbstring
-apt-get -y install php8.1-tokenizer
-apt-get -y install php8.1-mysql
-apt-get -y install php8.1-sqlite3
-apt-get -y install php8.1-pgsql
-apt-get -y install php8.1-redis
-apt-get -y install php8.1-memcached
-apt-get -y install php8.1-json
-apt-get -y install php8.1-zip
-apt-get -y install php8.1-xml
-apt-get -y install php8.1-soap
-apt-get -y install php8.1-gd
-apt-get -y install php8.1-imagick
-apt-get -y install php8.1-fileinfo
-apt-get -y install php8.1-imap
-apt-get -y install php8.1-cli
+sudo apt-get -y install php8.1
+sudo apt-get -y install php8.1-fpm
+sudo apt-get -y install php8.1-common
+sudo apt-get -y install php8.1-curl
+sudo apt-get -y install php8.1-openssl
+sudo apt-get -y install php8.1-bcmath
+sudo apt-get -y install php8.1-mbstring
+sudo apt-get -y install php8.1-tokenizer
+sudo apt-get -y install php8.1-mysql
+sudo apt-get -y install php8.1-sqlite3
+sudo apt-get -y install php8.1-pgsql
+sudo apt-get -y install php8.1-redis
+sudo apt-get -y install php8.1-memcached
+sudo apt-get -y install php8.1-json
+sudo apt-get -y install php8.1-zip
+sudo apt-get -y install php8.1-xml
+sudo apt-get -y install php8.1-soap
+sudo apt-get -y install php8.1-gd
+sudo apt-get -y install php8.1-imagick
+sudo apt-get -y install php8.1-fileinfo
+sudo apt-get -y install php8.1-imap
+sudo apt-get -y install php8.1-cli
 PHPINI=/etc/php/8.1/fpm/conf.d/linkpanel.ini
-touch $PHPINI
+sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
@@ -376,29 +385,30 @@ EOF
 service php8.1-fpm restart
 sleep 10s
 
-apt-get -y install php8.2-fpm
-apt-get -y install php8.2-common
-apt-get -y install php8.2-curl
-apt-get -y install php8.2-openssl
-apt-get -y install php8.2-bcmath
-apt-get -y install php8.2-mbstring
-apt-get -y install php8.2-tokenizer
-apt-get -y install php8.2-mysql
-apt-get -y install php8.2-sqlite3
-apt-get -y install php8.2-pgsql
-apt-get -y install php8.2-redis
-apt-get -y install php8.2-memcached
-apt-get -y install php8.2-json
-apt-get -y install php8.2-zip
-apt-get -y install php8.2-xml
-apt-get -y install php8.2-soap
-apt-get -y install php8.2-gd
-apt-get -y install php8.2-imagick
-apt-get -y install php8.2-fileinfo
-apt-get -y install php8.2-imap
-apt-get -y install php8.2-cli
+sudo apt-get -y install php8.2
+sudo apt-get -y install php8.2-fpm
+sudo apt-get -y install php8.2-common
+sudo apt-get -y install php8.2-curl
+sudo apt-get -y install php8.2-openssl
+sudo apt-get -y install php8.2-bcmath
+sudo apt-get -y install php8.2-mbstring
+sudo apt-get -y install php8.2-tokenizer
+sudo apt-get -y install php8.2-mysql
+sudo apt-get -y install php8.2-sqlite3
+sudo apt-get -y install php8.2-pgsql
+sudo apt-get -y install php8.2-redis
+sudo apt-get -y install php8.2-memcached
+sudo apt-get -y install php8.2-json
+sudo apt-get -y install php8.2-zip
+sudo apt-get -y install php8.2-xml
+sudo apt-get -y install php8.2-soap
+sudo apt-get -y install php8.2-gd
+sudo apt-get -y install php8.2-imagick
+sudo apt-get -y install php8.2-fileinfo
+sudo apt-get -y install php8.2-imap
+sudo apt-get -y install php8.2-cli
 PHPINI=/etc/php/8.2/fpm/conf.d/linkpanel.ini
-touch $PHPINI
+sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
 upload_max_filesize = 256M
@@ -406,11 +416,11 @@ post_max_size = 256M
 max_execution_time = 1999
 max_input_time = 1999
 EOF
-service php8.2-fpm restart
+sudo service php8.2-fpm restart
 sleep 10s
 
 # PHP EXTRA
-apt-get -y install php-dev php-pear
+sudo apt-get -y install php-dev php-pear
 
 
 # PHP CLI
@@ -420,7 +430,7 @@ echo "PHP CLI configuration..."
 echo "${restart}"
 sleep 10s
 
-update-alternatives --set php /usr/bin/php8.2
+sudo update-alternatives --set php /usr/bin/php8.0
 
 
 
@@ -499,7 +509,7 @@ server {
     error_page 404 /index.php;
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
     }
     location ~ /\.(?!well-known).* {
         deny all;
@@ -737,12 +747,14 @@ HOSTNAME=hostname -f | awk '{print $1}'
 clear
 echo "${green}${bold}"
 echo ""
-echo "█      █ ██████  █  █ ████     █     █████  █████ █    "
-echo "█      █ █     █ █ █  █   █   ███    █    █ █     █    "
-echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
-echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
-echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
-echo "BY ATSi Corporation"
+echo "=================================================================="
+echo "  █      █ ██████  █  █ ████     █     █████  █████ █     "
+echo "  █      █ █     █ █ █  █   █   ███    █    █ █     █     "
+echo "  █      █ █     █ ██   █   █  █   █   █    █ ███   █     "
+echo "  █      █ █     █ █ █  ████  ███████  █    █ █     █     "
+echo "  ██████ █ █     █ █  █ █    █       █ █    █ █████ █████ "
+echo "  Debian Version BY ATSi Corporation"
+echo "=================================================================="
 echo "***********************************************************"
 echo "                    SETUP COMPLETE YAY"
 echo "***********************************************************"
