@@ -119,12 +119,12 @@ echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel
 echo "${reset} = 'a'"
 sleep 15s
 
-apt-get update
-apt-get upgrade
-add-apt-repository ppa:ondrej/php -y
-add-apt-repository ppa:ondrej/nginx-mainline -y
-apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
-apt update
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo add-apt-repository ppa:ondrej/php -y
+sudo add-apt-repository ppa:ondrej/nginx-mainline -y
+sudo apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
+sudo apt update
 
 # GET IP
 clear
