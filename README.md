@@ -2,7 +2,7 @@
 
 [![PHP Composer](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml/badge.svg)](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml)
 
-- Also check author oringinal profile: <a href="https://github.com/anjasamar/LinkPanel">Anjas Amar Pradana</a>
+- Also check author oringinal profile: <a href="https://github.com/anjasamar/LinkPanel" target="_blank">Anjas Amar Pradana</a>
 
 ## About LinkPanel
 LinkPanel is a Laravel based super lightweight cloud server control panel that supports small VPS. It comes with nginx, Mysql, multi PHP-FPM versions, multi users, Supervisor, Composer, npm, free Let's Encrypt certificates, Git deployment, backups, ffmpeg, fail2ban, Redis, API and with a simple graphical interface useful to manage Laravel, Codeigniter, Symfony, WordPress or other PHP applications. With LinkPanel you don’t need to be a Sys Admin to deploy and manage websites and PHP applications powered by cloud VPS.
