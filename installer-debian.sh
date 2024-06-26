@@ -140,7 +140,9 @@ echo "Getting this machine public IP not local IP..."
 echo "${restart}"
 sleep 5s
 
-IP=curl -s https://checkip.amazonaws.com
+IP=$(curl -s https://checkip.amazonaws.com)
+echo "Your Public IP: $IP"
+sleep 10s
 
 
 # MOTD WELCOME MESSAGE
