@@ -49,8 +49,9 @@ echo "█      █ █     █ █ █  ████  ███████  █
 echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
 echo "BY ATSi Corporation"
 echo "Installation has been started... Hold on Pret!"
+echo "This script automatically takes care of all the installation tasks, so sit back and get some coffee ready to relax."
 echo "${reset}"
-sleep 10s
+sleep 15s
 
 
 
