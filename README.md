@@ -4,6 +4,12 @@
 [![PHP Composer](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml/badge.svg)](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
+## Used By
+
+This project is used by the following companies:
+
+- <a href="https://aldinara.co.id" target="blank">PT.ALDINARA DIGITECH INNOVATION</a>
+
 ## Authors
 
 - [@octokatherine](https://www.github.com/anjasamar)
