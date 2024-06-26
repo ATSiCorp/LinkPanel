@@ -116,7 +116,7 @@ echo "${reset}"
 sleep 15s
 
 apt-get update
-apt-get upgrade -y
+apt-get upgrade
 add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:ondrej/nginx-mainline -y
 apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
