@@ -61,7 +61,7 @@ sleep 20s
 clear
 clear
 echo "${bggreen}${black}${bold}"
-echo "OS check..."
+echo "Operating System Compatibility Check...!"
 echo "${restart}"
 sleep 10s
 
