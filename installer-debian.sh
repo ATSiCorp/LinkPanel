@@ -47,7 +47,7 @@ echo "█      █ █     █ █ █  █   █   ███    █    █ █ 
 echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
 echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
 echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
-echo "BY ATSi Corporation"
+echo "Debian Version BY ATSi Corporation"
 echo "=================================================================="
 echo "Installation has been started... on 20 sec, Hold on!"
 echo "This script automatically takes care of all the installation tasks"
@@ -61,16 +61,16 @@ sleep 20s
 clear
 clear
 echo "${bggreen}${black}${bold}"
-echo "OS check..."
+echo "Operating System check..."
 echo "${restart}"
 sleep 10s
 
 
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
-if [ "$ID" = "ubuntu" ]; then
+if [ "$ID" = "debian" ]; then
     case $VERSION in
-        20.04 | 22.04)
+        10 | 11 | 12)
             break
             ;;
         *)

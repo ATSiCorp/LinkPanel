@@ -47,7 +47,7 @@ echo "█      █ █     █ █ █  █   █   ███    █    █ █ 
 echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
 echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
 echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
-echo "BY ATSi Corporation"
+echo "Ubuntu Version BY ATSi Corporation"
 echo "=================================================================="
 echo "Installation has been started... on 20 sec, Hold on!"
 echo "This script automatically takes care of all the installation tasks"
