@@ -57,7 +57,7 @@ sleep 20s
 
 
 
-# OS CHECK
+# Ubuntu Operating System CHECK
 clear
 clear
 echo "${bggreen}${black}${bold}"
@@ -65,16 +65,41 @@ echo "OS check..."
 echo "${reset}"
 sleep 10s
 
+source /etc/lsb-release
+
+if [ -z $DISTRIB_RELEASE ] || [ -z $DISTRIB_ID ]; then
+    echo "DISTRIB_RELEASE and DISTRIB_ID are not set"
+else
+    if [ $DISTRIB_ID == "Ubuntu" ]; then
+        IFS='.' read -r -a distro_vers <<< $DISTRIB_RELEASE
+        major_ver=${distro_vers[0]}
+        echo "Distro major version $major_ver"
+        if [ -z $major_ver ]; then
+            echo "Major release version parsing failed"
+        else
+            if [ $(($major_ver)) -ge 24 ]; then
+                echo "Ubuntu major version is greater than 22"
+                # do your operation here
+            else
+                echo "Ubuntu major version is lesser than 20"
+                # do your operation here
+            fi
+        fi
+    else
+        echo "It is not ubuntu linux"
+    fi
+fi
+
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 if [ "$ID" = "ubuntu" ]; then
     case $VERSION in
-        20.04)
+        20.04 || 22.04)
             break
             ;;
         *)
             echo "${bgred}${white}${bold}"
-            echo "LinkPanel requires Linux Ubuntu 24.04 LTS Only"
+            echo "LinkPanel requires Linux Ubuntu 24.04-22.04 LTS Only"
             echo "${reset}"
             exit 1;
             break
@@ -82,7 +107,7 @@ if [ "$ID" = "ubuntu" ]; then
     esac
 else
     echo "${bgred}${white}${bold}"
-    echo "LinkPanel requires Linux Ubuntu 24.04 LTS Only"
+    echo "LinkPanel requires Linux Ubuntu 20.04-22.04 LTS Only"
     echo "${reset}"
     exit 1
 fi
@@ -133,8 +158,8 @@ echo "Getting this machine public IP not local IP..."
 echo "${reset}"
 sleep 5s
 
-IP=$(curl -s https://checkip.amazonaws.com)
-sleep 5s
+IP=(curl -s https://checkip.amazonaws.com)
+
 
 # MOTD WELCOME MESSAGE
 clear
@@ -753,7 +778,7 @@ echo " MySQL root pass: $DBPASS"
 echo "============================================================"
 echo ""
 echo " To manage your server visit"
-echo " Your IP Address http://$IP OR http://$HOSTNAME"
+echo " Your IP Address [http://$IP] OR [http://$HOSTNAME]"
 echo " and click on 'dashboard' button."
 echo " Default credentials are: admin / admin1230"
 echo ""
