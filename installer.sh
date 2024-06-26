@@ -141,7 +141,7 @@ echo "${reset}"
 sleep 10s
 
 WELCOME=/etc/motd
-touch $WELCOME
+sudo touch $WELCOME
 sudo cat > "$WELCOME" <<EOF
 
 █      █ ██████  █  █ ████     █     █████  █████ █    
