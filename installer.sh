@@ -41,17 +41,19 @@ bgpurple=$(tput setab 5)
 # LOGO
 clear
 echo "${green}${bold}"
-echo ""
+echo "=================================================================="
 echo "█      █ ██████  █  █ ████     █     █████  █████ █    "
 echo "█      █ █     █ █ █  █   █   ███    █    █ █     █    "
 echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
 echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
 echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
 echo "BY ATSi Corporation"
-echo "Installation has been started... Hold on Pret!"
-echo "This script automatically takes care of all the installation tasks, so sit back and get some coffee ready to relax."
+echo "=================================================================="
+echo "Installation has been started... on 20 sec, Hold on!"
+echo "This script automatically takes care of all the installation tasks"
+echo "so sit back and get some coffee ready to relax."
 echo "${reset}"
-sleep 15s
+sleep 20s
 
 
 
@@ -129,10 +131,10 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Getting this machine public IP not local IP..."
 echo "${reset}"
-sleep 3s
+sleep 5s
 
 IP=$(curl -s https://checkip.amazonaws.com)
-
+sleep 5s
 
 # MOTD WELCOME MESSAGE
 clear
@@ -150,10 +152,10 @@ sudo cat > "$WELCOME" <<EOF
 █      █ █     █ ██   █   █  █   █   █    █ ███   █    
 █      █ █     █ █ █  ████  ███████  █    █ █     █    
 ██████ █ █     █ █  █ █    █       █ █    █ █████ █████
-
+=======================================================
 Simple Lightweight Functional For Small Server
-
 LinkPanel Build BY ATSi Corporation
+=======================================================
 
 EOF
 
@@ -165,9 +167,9 @@ echo "${bggreen}${black}${bold}"
 echo "LinkPanel will set Memory SWAP to 2GB..."
 sleep 5s
 
-/bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
-/sbin/mkswap /var/swap.LinkPanel2GB
-/sbin/swapon /var/swap.LinkPanel2GB
+sudo /bin/dd if=/dev/zero of=/var/swap.LinkPanel2GB bs=2M count=2024
+sudo /sbin/mkswap /var/swap.LinkPanel2GB
+sudo /sbin/swapon /var/swap.LinkPanel2GB
 free -h
 echo "${reset}"
 sleep 15s
@@ -191,10 +193,10 @@ echo "Configure LinkPanel directories..."
 echo "${reset}"
 sleep 10s
 
-mkdir /etc/linkpanel/
-chmod o-r /etc/linkpanel
-mkdir /var/linkpanel/
-chmod o-r /var/linkpanel
+sudo mkdir /etc/linkpanel/
+sudo chmod o-r /etc/linkpanel
+sudo mkdir /var/linkpanel/
+sudo chmod o-r /var/linkpanel
 
 
 
@@ -205,12 +207,12 @@ echo "Set LinkPanel root user..."
 echo "${reset}"
 sleep 10s
 
-pam-auth-update --package
-mount -o remount,rw /
-chmod 640 /etc/shadow
-useradd -m -s /bin/bash linkpanel
+sudo pam-auth-update --package
+sudo mount -o remount,rw /
+sudo chmod 640 /etc/shadow
+sudo useradd -m -s /bin/bash linkpanel
 echo "linkpanel:$PASS"|chpasswd
-usermod -aG linkpanel
+sudo usermod -aG linkpanel
 
 
 # NGINX
@@ -221,11 +223,11 @@ echo "${reset}"
 sleep 5s
 
 apt-get -y install nginx.core
-systemctl start nginx.service
-rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
-rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
-systemctl enable nginx.service
-systemctl status nginx.service
+sudo systemctl start nginx.service
+sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
+sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
+sudo systemctl enable nginx.service
+sudo systemctl status nginx.service
 sleep 10s
 
 
@@ -241,8 +243,8 @@ sleep 5s
 
 apt-get -y install fail2ban
 JAIL=/etc/fail2ban/jail.local
-unlink JAIL
-touch $JAIL
+sudo unlink JAIL
+sudo touch $JAIL
 sudo cat > "$JAIL" <<EOF
 [DEFAULT]
 bantime = 3600
@@ -252,13 +254,13 @@ enabled = true
 logpath  = /var/log/auth.log
 EOF
 systemctl restart fail2ban
-ufw --force enable
-ufw allow ssh
-ufw allow 22/tcp
-ufw allow 22/udp
-ufw allow http
-ufw allow https
-ufw allow "Nginx Full"
+sudo ufw --force enable
+sudo ufw allow ssh
+sudo ufw allow 22/tcp
+sudo ufw allow 22/udp
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow "Nginx Full"
 
 
 
@@ -443,7 +445,7 @@ echo "GIT setup..."
 echo "${reset}"
 
 apt-get -y install git
-ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
+sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
 sleep 5s
 
 
@@ -455,8 +457,8 @@ echo "${reset}"
 sleep 10s
 
 apt-get -y install supervisor
-service supervisor restart
-service supervisor status
+sudo service supervisor restart
+sudo service supervisor status
 sleep 5s
 
 
@@ -470,9 +472,9 @@ sleep 10s
 
 NGINX=/etc/nginx/sites-available/default
 if test -f "$NGINX"; then
-    unlink NGINX
+    sudo unlink NGINX
 fi
-touch $NGINX
+sudo touch $NGINX
 sudo cat > "$NGINX" <<EOF
 server {
     listen 80 default_server;
@@ -504,9 +506,9 @@ server {
 EOF
 
 
-mkdir /etc/nginx/linkpanel/
-systemctl restart nginx.service
-systemctl status nginx.service
+sudo mkdir /etc/nginx/linkpanel/
+sudo systemctl restart nginx.service
+sudo systemctl status nginx.service
 sleep 15s
 
 
@@ -518,7 +520,7 @@ echo "${reset}"
 sleep 5s
 
 
-apt-get install -y mysql-server
+sudo apt-get install -y mysql-server
 SECURE_MYSQL=$(expect -c "
 set timeout 10
 spawn mysql_secure_installation
@@ -556,7 +558,7 @@ echo "${reset}"
 sleep 5s
 
 apt install -y redis-server
-rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
+sudo rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
 systemctl restart redis.service
 systemctl status redis.service
 sleep 15s
@@ -585,8 +587,8 @@ sleep 5s
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
 NODE=/etc/apt/sources.list.d/nodesource.list
-unlink NODE
-touch $NODE
+sudo unlink NODE
+sudo touch $NODE
 sudo cat > "$NODE" <<EOF
 deb https://deb.nodesource.com/node_20.x focal main
 deb-src https://deb.nodesource.com/node_20.x focal main
@@ -607,13 +609,13 @@ echo "${reset}"
 sleep 15s
 
 echo "${bggreen}${black}${bold}"
-echo "Create syslink..."
+echo "Create Syslink..."
 
 sudo /usr/bin/mysql -u root -p$DBPASS <<EOF
 CREATE DATABASE IF NOT EXISTS linkpanel;
 EOF
 sleep 10s
-rm -rf /var/www/html
+sudo rm -rf /var/www/html
 cd /var/www && git clone https://github.com/$REPO.git html
 cd /var/www/html && git pull
 cd /var/www/html && git checkout $BRANCH
@@ -621,19 +623,19 @@ cd /var/www/html && git pull
 cd /var/www/html && unlink .env
 cd /var/www/html && cp .env.example .env
 cd /var/www/html && php artisan key:generate
-rpl -i -w "DB_USERNAME=dbuser" "DB_USERNAME=linkpanel" /var/www/html/.env
-rpl -i -w "DB_PASSWORD=dbpass" "DB_PASSWORD=$DBPASS" /var/www/html/.env
-rpl -i -w "DB_DATABASE=dbname" "DB_DATABASE=linkpanel" /var/www/html/.env
-rpl -i -w "APP_URL=http://localhost" "APP_URL=http://$IP" /var/www/html/.env
-rpl -i -w "APP_ENV=local" "APP_ENV=production" /var/www/html/.env
-rpl -i -w "LINKPANELSERVERID" $SERVERID /var/www/html/database/seeders/DatabaseSeeder.php
-rpl -i -w "LINKPANELIP" $IP /var/www/html/database/seeders/DatabaseSeeder.php
-rpl -i -w "LINKPANELPASS" $PASS /var/www/html/database/seeders/DatabaseSeeder.php
-rpl -i -w "LINKPANELDB" $DBPASS /var/www/html/database/seeders/DatabaseSeeder.php
-chmod -R o+w /var/www/html/storage
-chmod -R 777 /var/www/html/storage
-chmod -R o+w /var/www/html/bootstrap/cache
-chmod -R 777 /var/www/html/bootstrap/cache
+sudo rpl -i -w "DB_USERNAME=dbuser" "DB_USERNAME=linkpanel" /var/www/html/.env
+sudo rpl -i -w "DB_PASSWORD=dbpass" "DB_PASSWORD=$DBPASS" /var/www/html/.env
+sudo rpl -i -w "DB_DATABASE=dbname" "DB_DATABASE=linkpanel" /var/www/html/.env
+sudo rpl -i -w "APP_URL=http://localhost" "APP_URL=http://$IP" /var/www/html/.env
+sudo rpl -i -w "APP_ENV=local" "APP_ENV=production" /var/www/html/.env
+sudo rpl -i -w "LINKPANELSERVERID" $SERVERID /var/www/html/database/seeders/DatabaseSeeder.php
+sudo rpl -i -w "LINKPANELIP" $IP /var/www/html/database/seeders/DatabaseSeeder.php
+sudo rpl -i -w "LINKPANELPASS" $PASS /var/www/html/database/seeders/DatabaseSeeder.php
+sudo rpl -i -w "LINKPANELDB" $DBPASS /var/www/html/database/seeders/DatabaseSeeder.php
+sudo chmod -R o+w /var/www/html/storage
+sudo chmod -R 777 /var/www/html/storage
+sudo chmod -R o+w /var/www/html/bootstrap/cache
+sudo chmod -R 777 /var/www/html/bootstrap/cache
 cd /var/www/html && composer update --no-interaction
 cd /var/www/html && php artisan key:generate
 cd /var/www/html && php artisan cache:clear
@@ -641,28 +643,28 @@ cd /var/www/html && php artisan storage:link
 cd /var/www/html && php artisan view:cache
 cd /var/www/html && php artisan linkpanel:activesetupcount
 LINKPANELBULD=/var/www/html/public/build_$SERVERID.php
-touch $LINKPANELBULD
+sudo touch $LINKPANELBULD
 sudo cat > $LINKPANELBULD <<EOF
 $BUILD
 EOF
 LINKPANELPING=/var/www/html/public/ping_$SERVERID.php
-touch $LINKPANELPING
+sudo touch $LINKPANELPING
 sudo cat > $LINKPANELPING <<EOF
 Up
 EOF
 PUBKEYGH=/var/www/html/public/ghkey_$SERVERID.php
-touch $PUBKEYGH
+sudo touch $PUBKEYGH
 sudo cat > $PUBKEYGH <<EOF
 <?php
 echo exec("cat /etc/linkpanel/github.pub");
 EOF
 cd /var/www/html && php artisan migrate --seed --force
 cd /var/www/html && php artisan config:cache
-chmod -R o+w /var/www/html/storage
-chmod -R 775 /var/www/html/storage
-chmod -R o+w /var/www/html/bootstrap/cache
-chmod -R 775 /var/www/html/bootstrap/cache
-chown -R www-data:linkpanel /var/www/html
+sudo chmod -R o+w /var/www/html/storage
+sudo chmod -R 775 /var/www/html/storage
+sudo chmod -R o+w /var/www/html/bootstrap/cache
+sudo chmod -R 775 /var/www/html/bootstrap/cache
+sudo chown -R www-data:linkpanel /var/www/html
 
 
 
@@ -671,7 +673,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Last LinkPanel installation steps..."
 echo "${reset}"
-sleep 1s
+sleep 5s
 
 chown www-data:linkpanel -R /var/www/html
 chmod -R 750 /var/www/html
@@ -682,7 +684,7 @@ systemctl daemon-reload
 
 TASK=/etc/cron.d/linkpanel.crontab
 touch $TASK
-sudo cat > "$TASK" <<EOF
+cat > "$TASK" <<EOF
 10 4 * * 7 certbot renew --nginx --non-interactive --post-hook "systemctl restart nginx.service"
 20 4 * * 7 apt-get -y update
 40 4 * * 7 DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" dist-upgrade
@@ -693,10 +695,10 @@ sudo cat > "$TASK" <<EOF
 EOF
 crontab $TASK
 systemctl restart nginx.service
-rpl -i -w "#PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
-rpl -i -w "# PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
-rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh/sshd_config
-rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
+sudo rpl -i -w "#PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
+sudo rpl -i -w "# PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
+sudo rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh/sshd_config
+sudo rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
 service sshd restart
 TASK=/etc/supervisor/conf.d/linkpanel.conf
 touch $TASK
