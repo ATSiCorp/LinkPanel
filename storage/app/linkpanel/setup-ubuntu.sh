@@ -61,7 +61,7 @@ sleep 20s
 clear
 clear
 echo "${bggreen}${black}${bold}"
-echo "OS check..."
+echo "Operating System Compatibility Check...!"
 echo "${restart}"
 sleep 10s
 
@@ -70,12 +70,12 @@ ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 if [ "$ID" = "ubuntu" ]; then
     case $VERSION in
-        20.04 | 22.04)
+        20.04 | 22.04 | 24.04)
             break
             ;;
         *)
             echo "${bgred}${white}${bold}"
-            echo "LinkPanel requires Linux Ubuntu 24.04-22.04 LTS Only"
+            echo "LinkPanel requires Linux Ubuntu 20.04-24.04 LTS Only"
             echo "${restart}"
             exit 1;
             break
@@ -83,7 +83,7 @@ if [ "$ID" = "ubuntu" ]; then
     esac
 else
     echo "${bgred}${white}${bold}"
-    echo "LinkPanel requires Linux Ubuntu 20.04-22.04 LTS Only"
+    echo "LinkPanel requires Linux Ubuntu 20.04-24.04 LTS Only"
     echo "${restart}"
     exit 1
 fi
@@ -140,7 +140,9 @@ echo "Getting this machine public IP not local IP..."
 echo "${restart}"
 sleep 5s
 
-IP=curl -s https://checkip.amazonaws.com
+IP=$(curl -s https://checkip.amazonaws.com)
+echo "Your Public IP: $IP"
+sleep 10s
 
 
 # MOTD WELCOME MESSAGE
