@@ -120,16 +120,19 @@ echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel
 echo "${restart}"
 sleep 15s
 
+sudo dpkg -l | grep php | tee packages.txt
 sudo apt-get update
 sudo apt-get upgrade
-sudo add-apt-repository ppa:ondrej/php -y
-sudo add-apt-repository ppa:ondrej/nginx-mainline -y
-sudo wget -qO - https://packages.sury.org/php/apt.gpg | sudo apt-key add -
-echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+
+# Add Ondrej's repo source and signing key along with dependencies
+sudo apt install apt-transport-https
+sudo curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
 sudo apt update
 sudo apt-get install software-properties-common -y
 sudo apt-get install net-tools curl wget nano micro vim 
-sudo apt-get install rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
+sudo apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
 sudo apt update
 
 # GET IP
@@ -415,7 +418,43 @@ max_execution_time = 1999
 max_input_time = 1999
 EOF
 sudo service php8.2-fpm restart
+
 sleep 10s
+
+sudo apt-get -y install php8.3
+sudo apt-get -y install php8.3-fpm
+sudo apt-get -y install php8.3-common
+sudo apt-get -y install php8.3-curl
+sudo apt-get -y install php8.3-openssl
+sudo apt-get -y install php8.3-bcmath
+sudo apt-get -y install php8.3-mbstring
+sudo apt-get -y install php8.3-tokenizer
+sudo apt-get -y install php8.3-mysql
+sudo apt-get -y install php8.3-sqlite3
+sudo apt-get -y install php8.3-pgsql
+sudo apt-get -y install php8.3-redis
+sudo apt-get -y install php8.3-memcached
+sudo apt-get -y install php8.3-json
+sudo apt-get -y install php8.3-zip
+sudo apt-get -y install php8.3-xml
+sudo apt-get -y install php8.3-soap
+sudo apt-get -y install php8.3-gd
+sudo apt-get -y install php8.3-imagick
+sudo apt-get -y install php8.3-fileinfo
+sudo apt-get -y install php8.3-imap
+sudo apt-get -y install php8.3-cli
+PHPINI=/etc/php/8.3/fpm/conf.d/linkpanel.ini
+sudo touch $PHPINI
+sudo cat > "$PHPINI" <<EOF
+memory_limit = 256M
+upload_max_filesize = 256M
+post_max_size = 256M
+max_execution_time = 1999
+max_input_time = 1999
+EOF
+sudo service php8.3-fpm restart
+sleep 10s
+
 
 # PHP EXTRA
 sudo apt-get -y install php-dev php-pear
