@@ -22,7 +22,7 @@ LinkPanel is a Laravel based super lightweight cloud server control panel that s
 
 - Real-time servers stats: Keep an eye on everything through an awesome dashboard without making your vps get more load.
 
-- Always up to date: LinkPanel installs (only) versions of LTS dists and supports Ubuntu 20.04 LTS for now :)
+- Always up to date: LinkPanel installs (only) versions of LTS dists and supports Debian 10-12 & Ubuntu 20.04-24.04 LTS for now <;)>
 
 ## Discover LinkPanel
 Visit website: https://linkpanel.atsi.cloud
@@ -30,25 +30,38 @@ Visit website: https://linkpanel.atsi.cloud
 ## Documentation
 LinkPanel Documentation is available at: https://linkpanel.atsi.cloud/docs.html.
 
-## Installation
+## Ubuntu 20.04-24.04 Installation
 ```bash
-wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer.sh | bash
+wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-ubuntu.sh | bash
 ```
-#### Installation on VPS
+#### Ubuntu 20.04-24.04 Installation on VPS
 VPS by default disables root login. To login as root inside VPS, login as default user and then use command sudo -s.
 And please dont use master branch, I still development them, if you want to still using master branch, you own risk for it.
 
-```
+```ssh
 $ ssh ubuntu@<your server IP address>
 $ ubuntu@aws:~$ sudo -s
-$ root@user:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer.sh | bash
+$ root@user:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-ubuntu.sh | bash
 ```
+
+## Debian 10-12 Installation
+```bash
+wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-debian.sh | bash
+```
+#### Debian 10-12 Installation on VPS
+
+```ssh
+$ ssh ubuntu@<your server IP address>
+$ ubuntu@aws:~$ sudo -s
+$ root@user:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-debian.sh | bash
+```
+
 Remember to open ports: 22, 80 and 443!
 
 #### Installation Note
 Before you can use LinkPanel, please make sure your server fulfils these requirements:
 
-- Ubuntu 24.04 x86_64 LTS (Fresh installation)
+- Debian 10-12 & Ubuntu 20.04-24.04 x86_64 LTS (Fresh installation)
 - If the server is virtual (VPS), OpenVZ may not be supported
 - We are checking LinkPanel compatibility within Oracle / ARM (not full supported yet)
 
