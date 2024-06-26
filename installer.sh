@@ -87,6 +87,25 @@ else
     echo "${reset} = 'a'"
     exit 1
 fi
+if [ "$ID" = "debian" ]; then
+    case $VERSION in
+        11 | 12)
+            break
+            ;;
+        *)
+            echo "${bgred}${white}${bold}"
+            echo "LinkPanel requires Linux Debian 11-12 LTS Only"
+            echo "${reset} = 'a'"
+            exit 1;
+            break
+            ;;
+    esac
+else
+    echo "${bgred}${white}${bold}"
+    echo "LinkPanel requires Linux Debian 11-12 LTS Only"
+    echo "${reset} = 'a'"
+    exit 1
+fi
 
 
 
