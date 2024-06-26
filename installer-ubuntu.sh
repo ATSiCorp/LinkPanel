@@ -124,7 +124,12 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo add-apt-repository ppa:ondrej/php -y
 sudo add-apt-repository ppa:ondrej/nginx-mainline -y
-sudo apt-get -y install software-properties-common net-tools curl wget nano micro vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
+sudo wget -qO - https://packages.sury.org/php/apt.gpg | sudo apt-key add -
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+sudo apt update
+sudo apt-get install software-properties-common -y
+sudo apt-get install net-tools curl wget nano micro vim 
+sudo apt-get install rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
 sudo apt update
 
 # GET IP
@@ -499,7 +504,7 @@ server {
     error_page 404 /index.php;
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
     }
     location ~ /\.(?!well-known).* {
         deny all;
@@ -737,12 +742,14 @@ HOSTNAME=hostname -f | awk '{print $1}'
 clear
 echo "${green}${bold}"
 echo ""
-echo "█      █ ██████  █  █ ████     █     █████  █████ █    "
-echo "█      █ █     █ █ █  █   █   ███    █    █ █     █    "
-echo "█      █ █     █ ██   █   █  █   █   █    █ ███   █    "
-echo "█      █ █     █ █ █  ████  ███████  █    █ █     █    "
-echo "██████ █ █     █ █  █ █    █       █ █    █ █████ █████"
-echo "BY ATSi Corporation"
+echo "=================================================================="
+echo "  █      █ ██████  █  █ ████     █     █████  █████ █     "
+echo "  █      █ █     █ █ █  █   █   ███    █    █ █     █     "
+echo "  █      █ █     █ ██   █   █  █   █   █    █ ███   █     "
+echo "  █      █ █     █ █ █  ████  ███████  █    █ █     █     "
+echo "  ██████ █ █     █ █  █ █    █       █ █    █ █████ █████ "
+echo "  Ubuntu Version BY ATSi Corporation"
+echo "=================================================================="
 echo "***********************************************************"
 echo "                    SETUP COMPLETE YAY"
 echo "***********************************************************"
