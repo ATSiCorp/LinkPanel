@@ -728,7 +728,7 @@ echo "LinkPanel installation has been completed..."
 echo "${reset}"
 sleep 15s
 
-
+HOSTNAME=hostname -f | awk '{print $1}'
 
 
 # SETUP COMPLETE MESSAGE
@@ -745,12 +745,15 @@ echo "***********************************************************"
 echo "                    SETUP COMPLETE YAY"
 echo "***********************************************************"
 echo ""
+echo "============================================================"
 echo " SSH root user: atsi"
 echo " SSH root pass: $PASS"
 echo " MySQL root user: atsi"
 echo " MySQL root pass: $DBPASS"
+echo "============================================================"
 echo ""
-echo " To manage your server visit: http://$IP"
+echo " To manage your server visit"
+echo " Your IP Address http://$IP OR http://$HOSTNAME"
 echo " and click on 'dashboard' button."
 echo " Default credentials are: admin / admin1230"
 echo ""
