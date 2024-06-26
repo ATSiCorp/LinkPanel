@@ -1,5 +1,4 @@
 ![Logo](https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/utility/design/banner.png)
-<img src="https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/utility/design/banner.png">
 
 [![PHP Composer](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml/badge.svg)](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
@@ -12,7 +11,7 @@ This project is used by the following companies:
 
 ## Authors
 
-- [@octokatherine](https://www.github.com/anjasamar)
+- [@anjasamar](https://www.github.com/anjasamar)
 
 
 ## About LinkPanel
