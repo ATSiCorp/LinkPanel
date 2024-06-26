@@ -52,7 +52,7 @@ echo "=================================================================="
 echo "Installation has been started... on 20 sec, Hold on!"
 echo "This script automatically takes care of all the installation tasks"
 echo "so sit back and get some coffee ready to relax."
-echo "${reset} = 'a'"
+echo "${restart}"
 sleep 20s
 
 
@@ -87,25 +87,7 @@ else
     echo "${reset} = 'a'"
     exit 1
 fi
-if [ "$ID" = "debian" ]; then
-    case $VERSION in
-        11 | 12)
-            break
-            ;;
-        *)
-            echo "${bgred}${white}${bold}"
-            echo "LinkPanel requires Linux Debian 11-12 LTS Only"
-            echo "${reset} = 'a'"
-            exit 1;
-            break
-            ;;
-    esac
-else
-    echo "${bgred}${white}${bold}"
-    echo "LinkPanel requires Linux Debian 11-12 LTS Only"
-    echo "${reset} = 'a'"
-    exit 1
-fi
+
 
 
 
