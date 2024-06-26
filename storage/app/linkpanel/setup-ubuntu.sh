@@ -65,7 +65,7 @@ echo "Operating System Compatibility Check...!"
 echo "${restart}"
 sleep 10s
 
-
+CODENAME=lsb_release -cs
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 if [ "$ID" = "ubuntu" ]; then
@@ -595,20 +595,21 @@ echo "Node/npm setup..."
 echo "${restart}"
 sleep 5s
 
+
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
 NODE=/etc/apt/sources.list.d/nodesource.list
+
 sudo unlink NODE
 sudo touch $NODE
 sudo cat > "$NODE" <<EOF
-deb https://deb.nodesource.com/node_20.x focal main
-deb-src https://deb.nodesource.com/node_20.x focal main
+deb https://deb.nodesource.com/node_20.x $CODENAME main
+deb-src https://deb.nodesource.com/node_20.x $CODENAME main
 EOF
 
 apt-get update
 apt -y install nodejs
 apt -y install npm
-
 
 
 
