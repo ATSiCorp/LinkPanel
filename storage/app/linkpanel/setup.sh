@@ -65,36 +65,12 @@ echo "OS check..."
 echo "${reset}"
 sleep 10s
 
-source /etc/lsb-release
-
-if [ -z $DISTRIB_RELEASE ] || [ -z $DISTRIB_ID ]; then
-    echo "DISTRIB_RELEASE and DISTRIB_ID are not set"
-else
-    if [ $DISTRIB_ID == "Ubuntu" ]; then
-        IFS='.' read -r -a distro_vers <<< $DISTRIB_RELEASE
-        major_ver=${distro_vers[0]}
-        echo "Distro major version $major_ver"
-        if [ -z $major_ver ]; then
-            echo "Major release version parsing failed"
-        else
-            if [ $(($major_ver)) -ge 24 ]; then
-                echo "Ubuntu major version is greater than 22"
-                # do your operation here
-            else
-                echo "Ubuntu major version is lesser than 20"
-                # do your operation here
-            fi
-        fi
-    else
-        echo "It is not ubuntu linux"
-    fi
-fi
 
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 if [ "$ID" = "ubuntu" ]; then
     case $VERSION in
-        20.04)
+        20.04 | 22.04)
             break
             ;;
         *)
