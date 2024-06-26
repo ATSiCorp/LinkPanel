@@ -1,7 +1,10 @@
 ![Logo](https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/utility/design/banner.png)
 
 [![PHP Composer](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml/badge.svg)](https://github.com/ATSiCorp/LinkPanel/actions/workflows/php.yml)
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+## License
+
+[GNU AGPLv3](https://choosealicense.com/licenses/agpl-3/)
+
 
 ## Used By
 
