@@ -47,6 +47,11 @@ Visit website: https://linkpanel.atsi.cloud
 ## Documentation
 LinkPanel Documentation is available at: https://linkpanel.atsi.cloud/docs.html.
 
+## Ubuntu 20.04-24.04 & Debian 10-12 Installation please ensure your OpenSSH is before run installer!
+```bash
+sudo apt-get remove --purge ssh-askpass ssh-askpass-gnome
+```
+
 ## Ubuntu 20.04-24.04 Installation
 ```bash
 wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-ubuntu.sh | bash
