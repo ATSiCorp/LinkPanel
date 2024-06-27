@@ -62,8 +62,8 @@ And please dont use master branch, I still development them, if you want to stil
 
 ```ssh
 $ ssh ubuntu@<your server IP address>
-$ ubuntu@aws:~$ sudo -s
-$ root@user:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-ubuntu.sh | bash
+$ ubuntu@hostname-example:~$ sudo -s
+$ root@hostname-example:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-ubuntu.sh | bash
 ```
 
 ## Debian 10-12 Installation
@@ -74,8 +74,8 @@ wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-de
 
 ```ssh
 $ ssh ubuntu@<your server IP address>
-$ ubuntu@aws:~$ sudo -s
-$ root@user:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-debian.sh | bash
+$ debian@hostname-example:~$ sudo -s
+$ root@hostname-example:~# wget -O - https://raw.githubusercontent.com/ATSiCorp/LinkPanel/main/installer-debian.sh | bash
 ```
 
 Remember to open ports: 22, 80 and 443!
