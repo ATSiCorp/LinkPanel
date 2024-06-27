@@ -120,6 +120,7 @@ echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel
 echo "${reset}"
 sleep 15s
 
+export DEBIAN_FRONTEND=noninteractive
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade
 sudo dpkg -l | grep php | tee packages.txt
@@ -131,7 +132,7 @@ sudo add-apt-repository ppa:ondrej/php
 
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common -y
-sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools curl wget nano micro vim 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools curl wget nano micro vim  -y
 sudo DEBIAN_FRONTEND=noninteractive apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
 sudo apt update
 
