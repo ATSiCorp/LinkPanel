@@ -253,7 +253,7 @@ echo "Fail2ban Firewall setup..."
 echo "${reset}"
 sleep 5s
 
-apt-get -y install fail2ban
+sudo apt-get -y install fail2ban
 JAIL=/etc/fail2ban/jail.local
 sudo unlink JAIL
 sudo touch $JAIL
@@ -457,7 +457,7 @@ sleep 10s
 
 
 # PHP EXTRA
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php-dev php-pear
+sudo apt-get -y install php-dev php-pear
 
 
 
@@ -547,7 +547,7 @@ server {
     error_page 404 /index.php;
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
     }
     location ~ /\.(?!well-known).* {
         deny all;
@@ -570,7 +570,7 @@ echo "${reset}"
 sleep 5s
 
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
+sudo apt-get install -y mysql-server
 SECURE_MYSQL=$(expect -c "
 set timeout 10
 spawn mysql_secure_installation
@@ -747,7 +747,7 @@ EOF
 crontab $TASK
 systemctl restart nginx.service
 sudo rpl -i -w "#PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
-sudo rpl -i -w "# PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
+sudo rpl -i -w "#PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd_config
 sudo rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh/sshd_config
 sudo rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
 service sshd restart
