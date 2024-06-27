@@ -120,9 +120,9 @@ echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel
 echo "${reset}"
 sleep 15s
 
-sudo dpkg -l | grep php | tee packages.txt
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade
+sudo dpkg -l | grep php | tee packages.txt
 
 # Add Ondrej's repo source and signing key along with dependencies
 sudo apt install apt-transport-https
