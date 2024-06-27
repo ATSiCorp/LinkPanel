@@ -27,6 +27,7 @@
                                         <i class="fas fa-arrow-left mr-1"></i>
                                         {{ __('linkpanel.return_to_dashboard') }}
                                     </a>
+                                    <img class="mb-4 img-error" src="/assets/img/logo.png" />
                                 </div>
                             </div>
                         </div>

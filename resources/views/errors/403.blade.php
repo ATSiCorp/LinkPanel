@@ -22,11 +22,13 @@
                             <div class="col-lg-6">
                                 <div class="text-center mt-4">
                                     <img class="mb-4 img-error" src="/assets/img/forbidden.jpg" />
+                                    
                                     <p class="lead"><b>{{ __('linkpanel.error') }} 403</b> | {{ __('linkpanel.forbidden') }}</p>
                                     <a href="/">
                                         <i class="fas fa-arrow-left mr-1"></i>
                                         {{ __('linkpanel.return_to_dashboard') }}
                                     </a>
+                                    <img class="mb-4 img-error" src="/assets/img/logo.png" />
                                 </div>
                             </div>
                         </div>
