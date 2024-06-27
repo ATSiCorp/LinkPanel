@@ -629,7 +629,6 @@ sleep 5s
 apt install -y redis-server
 sudo rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
 systemctl restart redis.service
-systemctl status redis.service
 sleep 15s
 
 

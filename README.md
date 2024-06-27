@@ -101,13 +101,22 @@ To correctly manage remote servers LinkPanel has to be on a public IP address (I
 - npm: Latest
 - Composer: Latest
 
-## Screenshots
+# Supported PHP Versions
 
-<img src="https://linkpanel.atsi.cloud/assets/images/docs/dashboard.png"> 
+* PHP 8.3 (will reach end of life (EOL) on 31 Dec, 2027.)
+* PHP 8.2 (will reach end of life (EOL) on 31 Dec, 2026.)
+* PHP 8.1 (will reach end of life (EOL) on 31 Dec, 2025.)
+* PHP 8.0 (will reach end of life (EOL) on 26 Nov, 2023.)
+* PHP 7.4 (Ubuntu 22.04 and up does not support php below this version.) (will reach end of life (EOL) on 28 Nov, 2022.)
+* PHP 7.3 (will reach end of life (EOL) on 6 Dec, 2021.)
+* PHP 7.2 (will reach end of life (EOL) on 30 Nov, 2020.)
+* PHP 7.1 (Almalinux 8.x and up does not support php below this version.),(will reach end of life (EOL) on 1 Dec, 2019.)
+* PHP 7.0 (will reach end of life (EOL) on 10 Jan, 2019.)
+* PHP 5.6 (will reach end of life (EOL) on 31 Dec, 2018.)
+* PHP 5.5 (will reach end of life (EOL) on 21 Jul, 2016.)
+* PHP 5.4 (will reach end of life (EOL) on 3 Sep, 2015.)
+* PHP 5.3 (will reach end of life (EOL) on 14 Aug, 2014.)
 
-<img src="https://linkpanel.atsi.cloud/assets/images/docs/server.png"> 
-
-<img src="https://linkpanel.atsi.cloud/assets/images/docs/site.png"> 
 
 ## Why use LinkPanel?
 LinkPanel is easy, stable, powerful and free for any personal and commercial use and it's a perfect alternative to Runcloud, Ploi.io, Serverpilot, Forge, Moss.atsi.cloud and similar software...
