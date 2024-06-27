@@ -120,8 +120,8 @@ echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel
 echo "${reset}"
 sleep 15s
 
-sudo apt-get update
-sudo apt-get upgrade
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade
 
 # Add Ondrej's repo source and signing key along with dependencies
 sudo apt install apt-transport-https
@@ -129,9 +129,9 @@ sudo curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.o
 sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 
 sudo apt update
-sudo apt-get install software-properties-common -y
-sudo apt-get install net-tools curl wget nano micro vim 
-sudo apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools curl wget nano micro vim 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
 sudo apt update
 
 # GET IP
@@ -233,7 +233,7 @@ echo "Nginx setup..."
 echo "${reset}"
 sleep 5s
 
-sudo apt-get -y install nginx.core
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install nginx.core
 sudo systemctl start nginx.service
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
 sudo rpl -i -w "http {" "http { limit_req_zone \$binary_remote_addr zone=one:10m rate=1r/s; fastcgi_read_timeout 300;" /etc/nginx/nginx.conf
@@ -287,28 +287,28 @@ sleep 15s
 apt-get update
 sleep 10s
 
-sudo apt-get -y install php7.4
-sudo apt-get -y install php7.4-fpm
-sudo apt-get -y install php7.4-common
-sudo apt-get -y install php7.4-curl
-sudo apt-get -y install php7.4-openssl
-sudo apt-get -y install php7.4-bcmath
-sudo apt-get -y install php7.4-mbstring
-sudo apt-get -y install php7.4-tokenizer
-sudo apt-get -y install php7.4-mysql
-sudo apt-get -y install php7.4-sqlite3
-sudo apt-get -y install php7.4-pgsql
-sudo apt-get -y install php7.4-redis
-sudo apt-get -y install php7.4-memcached
-sudo apt-get -y install php7.4-json
-sudo apt-get -y install php7.4-zip
-sudo apt-get -y install php7.4-xml
-sudo apt-get -y install php7.4-soap
-sudo apt-get -y install php7.4-gd
-sudo apt-get -y install php7.4-imagick
-sudo apt-get -y install php7.4-fileinfo
-sudo apt-get -y install php7.4-imap
-sudo apt-get -y install php7.4-cli
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-fpm
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-common
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-curl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-openssl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-bcmath
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-mbstring
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-tokenizer
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-mysql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-sqlite3
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-pgsql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-redis
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-memcached
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-json
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-zip
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-xml
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-soap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-gd
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-imagick
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-fileinfo
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-imap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-cli
 PHPINI=/etc/php/7.4/fpm/conf.d/linkpanel.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
@@ -321,28 +321,28 @@ EOF
 service php7.4-fpm restart
 sleep 10s
 
-sudo apt-get -y install php8.0
-sudo apt-get -y install php8.0-fpm
-sudo apt-get -y install php8.0-common
-sudo apt-get -y install php8.0-curl
-sudo apt-get -y install php8.0-openssl
-sudo apt-get -y install php8.0-bcmath
-sudo apt-get -y install php8.0-mbstring
-sudo apt-get -y install php8.0-tokenizer
-sudo apt-get -y install php8.0-mysql
-sudo apt-get -y install php8.0-sqlite3
-sudo apt-get -y install php8.0-pgsql
-sudo apt-get -y install php8.0-redis
-sudo apt-get -y install php8.0-memcached
-sudo apt-get -y install php8.0-json
-sudo apt-get -y install php8.0-zip
-sudo apt-get -y install php8.0-xml
-sudo apt-get -y install php8.0-soap
-sudo apt-get -y install php8.0-gd
-sudo apt-get -y install php8.0-imagick
-sudo apt-get -y install php8.0-fileinfo
-sudo apt-get -y install php8.0-imap
-sudo apt-get -y install php8.0-cli
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-fpm
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-common
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-curl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-openssl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-bcmath
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-mbstring
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-tokenizer
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-mysql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-sqlite3
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-pgsql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-redis
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-memcached
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-json
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-zip
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-xml
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-soap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-gd
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-imagick
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-fileinfo
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-imap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-cli
 PHPINI=/etc/php/8.0/fpm/conf.d/linkpanel.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
@@ -355,28 +355,28 @@ EOF
 service php8.0-fpm restart
 sleep 10s
 
-sudo apt-get -y install php8.1
-sudo apt-get -y install php8.1-fpm
-sudo apt-get -y install php8.1-common
-sudo apt-get -y install php8.1-curl
-sudo apt-get -y install php8.1-openssl
-sudo apt-get -y install php8.1-bcmath
-sudo apt-get -y install php8.1-mbstring
-sudo apt-get -y install php8.1-tokenizer
-sudo apt-get -y install php8.1-mysql
-sudo apt-get -y install php8.1-sqlite3
-sudo apt-get -y install php8.1-pgsql
-sudo apt-get -y install php8.1-redis
-sudo apt-get -y install php8.1-memcached
-sudo apt-get -y install php8.1-json
-sudo apt-get -y install php8.1-zip
-sudo apt-get -y install php8.1-xml
-sudo apt-get -y install php8.1-soap
-sudo apt-get -y install php8.1-gd
-sudo apt-get -y install php8.1-imagick
-sudo apt-get -y install php8.1-fileinfo
-sudo apt-get -y install php8.1-imap
-sudo apt-get -y install php8.1-cli
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-fpm
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-common
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-curl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-openssl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-bcmath
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-mbstring
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-tokenizer
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-mysql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-sqlite3
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-pgsql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-redis
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-memcached
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-json
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-zip
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-xml
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-soap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-gd
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-imagick
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-fileinfo
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-imap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-cli
 PHPINI=/etc/php/8.1/fpm/conf.d/linkpanel.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
@@ -389,28 +389,28 @@ EOF
 service php8.1-fpm restart
 sleep 10s
 
-sudo apt-get -y install php8.2
-sudo apt-get -y install php8.2-fpm
-sudo apt-get -y install php8.2-common
-sudo apt-get -y install php8.2-curl
-sudo apt-get -y install php8.2-openssl
-sudo apt-get -y install php8.2-bcmath
-sudo apt-get -y install php8.2-mbstring
-sudo apt-get -y install php8.2-tokenizer
-sudo apt-get -y install php8.2-mysql
-sudo apt-get -y install php8.2-sqlite3
-sudo apt-get -y install php8.2-pgsql
-sudo apt-get -y install php8.2-redis
-sudo apt-get -y install php8.2-memcached
-sudo apt-get -y install php8.2-json
-sudo apt-get -y install php8.2-zip
-sudo apt-get -y install php8.2-xml
-sudo apt-get -y install php8.2-soap
-sudo apt-get -y install php8.2-gd
-sudo apt-get -y install php8.2-imagick
-sudo apt-get -y install php8.2-fileinfo
-sudo apt-get -y install php8.2-imap
-sudo apt-get -y install php8.2-cli
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-fpm
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-common
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-curl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-openssl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-bcmath
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-mbstring
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-tokenizer
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-mysql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-sqlite3
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-pgsql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-redis
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-memcached
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-json
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-zip
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-xml
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-soap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-gd
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-imagick
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-fileinfo
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-imap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-cli
 PHPINI=/etc/php/8.2/fpm/conf.d/linkpanel.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
@@ -423,28 +423,28 @@ EOF
 sudo service php8.2-fpm restart
 sleep 10s
 
-sudo apt-get -y install php8.3
-sudo apt-get -y install php8.3-fpm
-sudo apt-get -y install php8.3-common
-sudo apt-get -y install php8.3-curl
-sudo apt-get -y install php8.3-openssl
-sudo apt-get -y install php8.3-bcmath
-sudo apt-get -y install php8.3-mbstring
-sudo apt-get -y install php8.3-tokenizer
-sudo apt-get -y install php8.3-mysql
-sudo apt-get -y install php8.3-sqlite3
-sudo apt-get -y install php8.3-pgsql
-sudo apt-get -y install php8.3-redis
-sudo apt-get -y install php8.3-memcached
-sudo apt-get -y install php8.3-json
-sudo apt-get -y install php8.3-zip
-sudo apt-get -y install php8.3-xml
-sudo apt-get -y install php8.3-soap
-sudo apt-get -y install php8.3-gd
-sudo apt-get -y install php8.3-imagick
-sudo apt-get -y install php8.3-fileinfo
-sudo apt-get -y install php8.3-imap
-sudo apt-get -y install php8.3-cli
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-fpm
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-common
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-curl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-openssl
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-bcmath
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-mbstring
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-tokenizer
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-mysql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-sqlite3
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-pgsql
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-redis
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-memcached
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-json
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-zip
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-xml
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-soap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-gd
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-imagick
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-fileinfo
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-imap
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-cli
 PHPINI=/etc/php/8.3/fpm/conf.d/linkpanel.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
@@ -458,7 +458,7 @@ sudo service php8.3-fpm restart
 sleep 10s
 
 # PHP EXTRA
-sudo apt-get -y install php-dev php-pear
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php-dev php-pear
 
 
 # PHP CLI
@@ -570,7 +570,7 @@ echo "${reset}"
 sleep 5s
 
 
-sudo apt-get install -y mysql-server
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
 SECURE_MYSQL=$(expect -c "
 set timeout 10
 spawn mysql_secure_installation
