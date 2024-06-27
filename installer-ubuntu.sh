@@ -107,6 +107,7 @@ else
     echo "You have to run LinkPanel as root. (In VPS or Local Server use '-s')"
     sleep 20s
     echo "${reset}"
+    $nrconf{restart} = 'a';
     exit 1
 fi
 
@@ -118,6 +119,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel requirement..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 15s
 
 export DEBIAN_FRONTEND=noninteractive
@@ -142,6 +144,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Getting this machine public IP not local IP..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 5s
 
 IP=$(curl -s https://checkip.amazonaws.com)
@@ -154,6 +157,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Motd settings..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 WELCOME=/etc/motd
@@ -185,6 +189,7 @@ sudo /sbin/mkswap /var/swap.LinkPanel2GB
 sudo /sbin/swapon /var/swap.LinkPanel2GB
 free -h
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 15s
 
 # ALIAS
@@ -192,6 +197,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Custom CLI configuration..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 shopt -s expand_aliases
@@ -204,6 +210,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Configure LinkPanel directories..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 sudo mkdir /etc/linkpanel/
@@ -218,6 +225,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Set LinkPanel root user..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 sudo pam-auth-update --package
@@ -233,6 +241,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Nginx setup..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 5s
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install nginx.core
@@ -252,6 +261,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Fail2ban Firewall setup..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 5s
 
 sudo apt-get -y install fail2ban
@@ -283,6 +293,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "PHP setup (This may take some time for install and configure)"
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 15s
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4
@@ -467,6 +478,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "PHP CLI configuration..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 update-alternatives --set php /usr/bin/php8.0
@@ -478,6 +490,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Composer setup..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -494,6 +507,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "GIT setup..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 
 apt-get -y install git
 sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
@@ -505,6 +519,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Supervisor setup..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 apt-get -y install supervisor
@@ -519,6 +534,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Default vhost..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 10s
 
 NGINX=/etc/nginx/sites-available/default
@@ -568,6 +584,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "MySQL setup..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 5s
 
 
@@ -606,6 +623,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "Redis setup..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 5s
 
 apt install -y redis-server
@@ -778,6 +796,7 @@ clear
 echo "${bggreen}${black}${bold}"
 echo "LinkPanel installation has been completed..."
 echo "${reset}"
+$nrconf{restart} = 'a';
 sleep 15s
 
 HOSTNAME=hostname -f | awk '{print $1}'
