@@ -14,8 +14,8 @@ return [
     'return_to_dashboard' => 'Return to Dashboard',
     'file_not_found' => 'File not found',
     'internal_server_error' => 'Internal Server Error',
-    'system_error' => 'System Error',
-    'unknown_error' => 'Ops! Something went wrong... try later!',
+    'system_error' => 'Ops! Something Error! Error Code:2, please tell Anjas Amar Pradana on Github For it.',
+    'unknown_error' => 'Ops! Something Error! Error Code:1, please tell Anjas Amar Pradana on Github For it.',
     // AuthController errors
     'invalid_login' => 'Username and password don\'t match',
     'invalid_login_message' => 'Given credentials are invalid',
