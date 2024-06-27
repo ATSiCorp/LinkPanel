@@ -74,12 +74,13 @@
             <div class="content">
                 <div class="title m-b-md">
                     {{ config('linkpanel.name') }}
+                    <img class="mb-4 img-error" src="/assets/img/logo.png" />
                 </div>
 
                 <div class="links">
                     <a target="_blank" href="{{ config('linkpanel.website') }}">Website</a>
                     <a target="_blank" href="{{ config('linkpanel.documentation') }}">Documentation</a>
-                    <a target="_blank" href="{{ config('linkpanel.app') }}">Mobile App</a>
+                    <a href="/dashboard">Go To Dashboard</a>
                 </div>
             </div>
         </div>

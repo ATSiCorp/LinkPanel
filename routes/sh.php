@@ -11,4 +11,4 @@ Route::get('/delsite', [ShellController::class, 'delsite']);
 Route::get('/sitepass', [ShellController::class, 'sitepass']);
 
 // Client Patch
-Route::get('/client-patch/202112091', [ShellController::class, 'patch-update-linkpanel']);
+Route::get('/client-patch/linkpanel-updater', [ShellController::class, 'patch-update-linkpanel']);
