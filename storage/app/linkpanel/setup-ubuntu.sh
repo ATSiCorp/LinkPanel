@@ -800,7 +800,9 @@ $nrconf{restart} = 'a';
 sleep 15s
 
 HOSTNAME=hostname -f | awk '{print $1}'
-
+IP=$(curl -s https://checkip.amazonaws.com)
+echo "Your Public IP: $IP"
+sleep 10s
 
 # SETUP COMPLETE MESSAGE
 clear
