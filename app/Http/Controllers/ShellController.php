@@ -99,38 +99,15 @@ class ShellController extends Controller
 
 
     /**
-     * Client Patch - 202112091
+     * Client Patch - latest
      *
     */
     public function patch202112091()
     {
-        $script = Storage::get('linkpanel/patch202112091.sh');
+        $script = Storage::get('linkpanel/patch-update-latest.sh');
 
         return response($script)
                 ->withHeaders(['Content-Type' =>'application/x-sh']);
     }
 
-    /**
-     * Client Patch - 202112101
-     *
-    */
-    public function patch202112101()
-    {
-        $script = Storage::get('linkpanel/patch202112101.sh');
-
-        return response($script)
-                ->withHeaders(['Content-Type' =>'application/x-sh']);
-    }
-
-    /**
-     * Client Patch - 202112181
-     *
-    */
-    public function patch202112181()
-    {
-        $script = Storage::get('linkpanel/patch202112181.sh');
-
-        return response($script)
-                ->withHeaders(['Content-Type' =>'application/x-sh']);
-    }
 }
