@@ -120,9 +120,9 @@ echo "OS Base setup also check Update - Upgrade - Install software for LinkPanel
 echo "${reset}"
 sleep 15s
 
-sudo echo "\$nrconf{restart} = 'a'" >> /etc/needrestart/needrestart.conf
+sudo echo "\$nrconf{restart} = 'a';" >> /etc/needrestart/needrestart.conf
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade
 
 # Add Ondrej's repo source and signing key along with dependencies
 sudo apt install apt-transport-https
