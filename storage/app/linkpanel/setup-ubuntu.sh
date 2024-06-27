@@ -123,14 +123,15 @@ echo "${reset}"
 sleep 15s
 
 sudo echo "\$nrconf{restart} = 'a'" >> /etc/needrestart/needrestart.conf
-sudo DEBIAN_FRONTEND=noninteractive apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade
-sudo dpkg -l | grep php | tee packages.txt
 sudo apt-get remove --purge ssh-askpass ssh-askpass-gnome
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+
 
 # Add Ondrej's repo source and signing key along with dependencies
 sudo apt install apt-transport-https
 sudo add-apt-repository ppa:ondrej/php
+sudo dpkg -l | grep php | tee packages.txt
 
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common -y
