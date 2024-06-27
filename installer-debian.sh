@@ -122,6 +122,7 @@ sleep 15s
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade
+sudo apt-get remove --purge ssh-askpass ssh-askpass-gnome
 
 # Add Ondrej's repo source and signing key along with dependencies
 sudo apt install apt-transport-https
