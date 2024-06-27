@@ -95,7 +95,7 @@ To correctly manage remote servers LinkPanel has to be on a public IP address (I
 
 ## LinkPanel LEMP environment
 - nginx: Latest
-- PHP-FPM: 8.2, 8.1, 8.0, 7.4
+- PHP-FPM: 8.3, 8.2, 8.1, 8.0, 7.4
 - MySql: Latest
 - node: Latest
 - npm: Latest
@@ -113,19 +113,16 @@ To correctly manage remote servers LinkPanel has to be on a public IP address (I
 LinkPanel is easy, stable, powerful and free for any personal and commercial use and it's a perfect alternative to Runcloud, Ploi.io, Serverpilot, Forge, Moss.atsi.cloud and similar software...
 
 ## LinkPanel Roadmap... what's next? 
-- LinkPanel Version 4 (half 2024)
-- Laravel 9 support
+- LinkPanel Version 2 (half 2024)
+- Laravel 11 support
 - Backup on s3
 - Apps installer
-- ...
-
-## Contributing
-Thank you for considering contributing to the LinkPanel Project (code, issues, feedbacks, stars, promo, beers) :)
+- And other function for all I announcement later...
 
 #### ...anyway star this project on Github, Thankyou ;)
 
 ## Licence
-LinkPanel is an open-source software licensed under the MIT license.
+LinkPanel is an open-source software licensed under the AGPL license for now, I will add license package for next version!.
 
 ## Need support with LinkPanel?
 Please open an issue here: https://github.com/ATSiCorp/linkpanel/issues.
