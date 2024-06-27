@@ -131,8 +131,9 @@ sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https
 
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common -y
-sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools curl wget nano micro vim -y
-sudo DEBIAN_FRONTEND=noninteractive apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools curl wget nano micro vim neofetch  -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
 sudo apt update
 
 # GET IP

@@ -134,8 +134,9 @@ sudo dpkg -l | grep php | tee packages.txt
 
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common -y
-sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools curl wget nano micro vim  -y
-sudo DEBIAN_FRONTEND=noninteractive apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools curl wget nano micro vim neofetch  -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install rpl sed zip unzip openssl expect dirmngr lsb-release -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install ca-certificates dnsutils dos2unix zsh htop ffmpeg -y
 sudo apt update
 
 # GET IP
@@ -296,7 +297,7 @@ echo "${reset}"
 
 sleep 15s
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4
+#sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-fpm
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-common
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php7.4-curl
@@ -330,7 +331,7 @@ EOF
 service php7.4-fpm restart
 sleep 10s
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0
+#sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-fpm
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-common
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.0-curl
@@ -364,7 +365,7 @@ EOF
 service php8.0-fpm restart
 sleep 10s
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1
+#sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-fpm
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-common
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.1-curl
@@ -398,7 +399,7 @@ EOF
 service php8.1-fpm restart
 sleep 10s
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2
+#sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-fpm
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-common
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.2-curl
@@ -433,7 +434,7 @@ sudo service php8.2-fpm restart
 
 sleep 10s
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3
+#sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-fpm
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-common
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install php8.3-curl
@@ -509,7 +510,7 @@ echo "GIT setup..."
 echo "${reset}"
 
 
-apt-get -y install git
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install git
 sudo ssh-keygen -t rsa -C "git@github.com" -f /etc/linkpanel/github -q -P ""
 sleep 5s
 
@@ -522,7 +523,7 @@ echo "${reset}"
 
 sleep 10s
 
-apt-get -y install supervisor
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor
 sudo service supervisor restart
 sudo service supervisor status
 sleep 5s
@@ -588,7 +589,7 @@ echo "${reset}"
 sleep 5s
 
 
-sudo apt-get install -y mysql-server
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
 SECURE_MYSQL=$(expect -c "
 set timeout 10
 spawn mysql_secure_installation
@@ -626,7 +627,7 @@ echo "${reset}"
 
 sleep 5s
 
-apt install -y redis-server
+sudo DEBIAN_FRONTEND=noninteractive apt install -y redis-server
 sudo rpl -i -w "supervised no" "supervised systemd" /etc/redis/redis.conf
 systemctl restart redis.service
 sleep 15s
@@ -744,8 +745,8 @@ echo "Last LinkPanel installation steps..."
 echo "${reset}"
 sleep 5s
 
-chown www-data:linkpanel -R /var/www/html
-chmod -R 750 /var/www/html
+sudo chown www-data:linkpanel -R /var/www/html
+sudo chmod -R 750 /var/www/html
 echo 'DefaultStartLimitIntervalSec=1s' >> /usr/lib/systemd/system/user@.service
 echo 'DefaultStartLimitBurst=50' >> /usr/lib/systemd/system/user@.service
 echo 'StartLimitBurst=0' >> /usr/lib/systemd/system/user@.service
@@ -796,7 +797,7 @@ echo "${bggreen}${black}${bold}"
 echo "LinkPanel installation has been completed..."
 echo "${reset}"
 
-sleep 15s
+sleep 5s
 
 HOSTNAME=hostname -f | awk '{print $1}'
 IP=$(curl -s https://checkip.amazonaws.com)
