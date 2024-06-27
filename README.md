@@ -100,7 +100,7 @@ To correctly manage remote servers LinkPanel has to be on a public IP address (I
 - node: Latest
 - npm: Latest
 - Composer: Latest
-
+# If you facing any error on PHP installation on LinkPanel see this information
 # Supported PHP Versions
 
 * PHP 8.3 (will reach end of life (EOL) on 31 Dec, 2027.)
